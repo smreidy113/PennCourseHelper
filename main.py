@@ -16,6 +16,8 @@ app = Flask(__name__)
 
 req = requests.get('http://api.penncoursereview.com/v1/depts?token=' + api_key)
 
+majors = ['Accounting', 'Business Economic and Public Policy']
+
 
 def startCode():
 	ans = ""
@@ -38,7 +40,7 @@ def start():
 	js = req.json()['result']
 	html = ""
 	html += startCode()
-	html += "\n\t\tSelect a department"
+	html += "\n\t\tSelect a department:"
 	html += "\n\t\t<form name=\"myform\" action=\"listcourses\" method=\"POST\">"
 	html += "\n\t\t\t<select name=\"dept1\">"
 	for dept in js['values']:
@@ -47,6 +49,11 @@ def start():
 	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
 	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
 	html += "\n\t\t</form>"
+	html += "\n\t\tSelect your major:"
+	html += "\n\t\t\t<select name=\"major\">"
+	for major in majors:
+		html += "\n\t\t\t\t<option value=\"" + major + "</option>"
+	html += "\n\t\t\t</select>"
 	html += endCode()
 	return html
 
@@ -60,6 +67,7 @@ def listcourses():
 		html += course[0]
 	html += endCode()
 	return html
+
 
 #req = requests.get('http://api.penncoursereview.com/v1/coursehistories/CIS-110?token=' + api_key)
 
