@@ -17,7 +17,6 @@ app = Flask(__name__)
 
 req = requests.get('http://api.penncoursereview.com/v1/depts?token=' + api_key)
 
-majors = ['Accounting', 'Business Economic and Public Policy']
 
 
 def startCode():
@@ -60,13 +59,19 @@ def start():
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
-	html += "\n\t\t</form>"
 	html += "\n\t\tSelect your major:"
 	html += "\n\t\t\t<select name=\"major\">"
 	for major in majors:
-		html += "\n\t\t\t\t<option value=\"" + major + "</option>"
+		html += "\n\t\t\t\t<option value=\"" + Attribute.majors[major] + "\">" + major + "</option>"
 	html += "\n\t\t\t</select>"
+	html += "\n\t\t\t</select>"
+	html += "\n\t\tSelect your minor:"
+	html += "\n\t\t\t<select name=\"minor\">"
+	for minor in minors:
+		html += "\n\t\t\t\t<option value=\"" + Attribute.minors[minor] + "\">" + minor + "</option>"
+	html += "\n\t\t\t</select>"
+	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
+	html += "\n\t\t</form>"
 	html += endCode()
 	return html
 
