@@ -1,5 +1,4 @@
 import requests
-import oauth2 as oauth
 import base64
 import json
 from flask import Flask
