@@ -1,8 +1,8 @@
 import requests
 import base64
 import json
-import CourseList
-import Attributes
+import Methods
+import Data
 from flask import Flask
 from flask import jsonify
 from flask import request
@@ -49,8 +49,16 @@ def start():
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
 	html += "\n\t\t\t1st Priority: <select name=\"priority1\">"
-	for prior in Attributes.attrs.keys():
-		html += "\n\t\t\t\t<option value=\"" + Attributes.attrs[prior] + "\">" + prior + "</option>"
+	for prior in Data.attrs.keys():
+		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior] + "\">" + prior + "</option>"
+	html += "\n\t\t\t</select>"
+	html += "\n\t\t\t2nd Priority: <select name=\"priority2\">"
+	for prior in Data.attrs.keys():
+		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior] + "\">" + prior + "</option>"
+	html += "\n\t\t\t</select>"
+	html += "\n\t\t\t3rd Priority: <select name=\"priority3\">"
+	for prior in Data.attrs.keys():
+		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
 	html += "\n\t\t</form>"
@@ -67,7 +75,7 @@ def listcourses():
 	html = ""
 	html += startCode()
 	html += request.form['dept1']
-	for course in CourseList.courseList(request.form['coursestaken']):
+	for course in Methods.courseList(request.form['coursestaken']):
 		html += course[0]
 	html += endCode()
 	return html
