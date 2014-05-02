@@ -1,0 +1,1 @@
+attrs = {"Course Quality": r'CourseQuality', "Instructor Quality": r'InstructorQuality', "Difficulty": r'Difficulty', "Communication Ability": r'CommAbility'}
