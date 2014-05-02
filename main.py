@@ -1,6 +1,7 @@
 import requests
 import base64
 import json
+import CourseList
 from flask import Flask
 from flask import jsonify
 from flask import request
@@ -40,7 +41,6 @@ def start():
 	html += "\n\t\tSelect a department"
 	html += "\n\t\t<form name=\"myform\" action=\"listcourses\" method=\"POST\">"
 	html += "\n\t\t\t<select name=\"dept1\">"
-	print js.keys()
 	for dept in js['values']:
 		html += "\n\t\t\t\t<option value=\"" + dept['id'] + "\">" + dept['id'] + " - " + dept['name'] + "</option>"
 	html += "\n\t\t\t</select>"
@@ -56,7 +56,8 @@ def listcourses():
 	html = ""
 	html += startCode()
 	html += request.form['dept1']
-	html += request.form['coursestaken']
+	for course in CourseList.courseList(request.form['coursestaken']):
+		html += course[0]
 	html += endCode()
 	return html
 
