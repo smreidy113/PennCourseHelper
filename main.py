@@ -61,14 +61,14 @@ def start():
 	html += "\n\t\t\t</select>"
 	html += "\n\t\tSelect your major:"
 	html += "\n\t\t\t<select name=\"major\">"
-	for major in majors:
-		html += "\n\t\t\t\t<option value=\"" + Attribute.majors[major] + "\">" + major + "</option>"
+	for major in Data.majors:
+		html += "\n\t\t\t\t<option value=\"" + major + "\">" + major + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\tSelect your minor:"
 	html += "\n\t\t\t<select name=\"minor\">"
-	for minor in minors:
-		html += "\n\t\t\t\t<option value=\"" + Attribute.minors[minor] + "\">" + minor + "</option>"
+	for minor in Data.minors:
+		html += "\n\t\t\t\t<option value=\"" + minor + "\">" + minor + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
 	html += "\n\t\t</form>"
