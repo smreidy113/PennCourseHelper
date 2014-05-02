@@ -38,9 +38,9 @@ def start():
 	js = req.json()['result']
 	html = ""
 	html += startCode()
-	html += "\n\t\tSelect a department:"
+	html += "\n\t\tSelect a department"
 	html += "\n\t\t<form name=\"myform\" action=\"listcourses\" method=\"POST\">"
-	html += "\n\t\t\t<select name=\"course1\">"
+	html += "\n\t\t\t<select name=\"dept1\">"
 	print js.keys()
 	for dept in js['values']:
 		html += "\n\t\t\t\t<option value=\"" + dept['id'] + "\">" + dept['id'] + " - " + dept['name'] + "</option>"
@@ -55,7 +55,7 @@ def listcourses():
 	print request
 	html = ""
 	html += startCode()
-	html += request.form['course1']
+	html += request.form['dept1']
 	html += endCode()
 	return html
 
