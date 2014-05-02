@@ -45,6 +45,7 @@ def start():
 	for dept in js['values']:
 		html += "\n\t\t\t\t<option value=\"" + dept['id'] + "\">" + dept['id'] + " - " + dept['name'] + "</option>"
 	html += "\n\t\t\t</select>"
+	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
 	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
 	html += "\n\t\t</form>"
 	html += endCode()
@@ -56,6 +57,7 @@ def listcourses():
 	html = ""
 	html += startCode()
 	html += request.form['dept1']
+	html += request.form['coursestaken']
 	html += endCode()
 	return html
 
