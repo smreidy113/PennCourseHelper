@@ -79,12 +79,14 @@ def rankedCoursesMultiple(l,p1,p2,p3):
 	return s
 
 def printSchedule(l, year):
+	if (year <= 2014):
+		html += "You've graduated. You have no more semesters to take classes."
 	sorted_classes = sorted(l, key=lambda x: int(x[-3:]))
 	num_per_semester = len(l) / (2 * (year - 2014))
 	for i in range(year*2):
-		html += "Semester" + str(i) + "\n"
+		html += "<br> Semester" + str(i) + "</br>"
 		for j in range(num_per_semester):
-			html += sorted_classes[i * num_per_semester + j] + "\n"
+			html += "<br>" + sorted_classes[i * num_per_semester + j] + "</br>"
 	
 
 
