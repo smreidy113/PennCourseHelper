@@ -34,8 +34,14 @@ def rankedCourses(revinfo,p1,p2,p3, num_needed):
 				sumRating1 += float(section['ratings'].get(str('r'+p1),0.0))
 			else:
 				sumRating1 += float(4 - section['ratings'].get(str('r'+p1),0.0))
-			sumRating2 += float(section['ratings'].get(str('r'+p2),0.0))
-			sumRating3 += float(section['ratings'].get(str('r'+p3),0.0))
+			if (Data.attrs[p2][1]):
+				sumRating2 += float(section['ratings'].get(str('r'+p2),0.0))
+			else:
+				sumRating2 += float(4 - section['ratings'].get(str('r'+p2),0.0))
+			if (Data.attrs[p3][1]):
+				sumRating3 += float(section['ratings'].get(str('r'+p3),0.0))
+			else:
+				sumRating3 += float(4 - section['ratings'].get(str('r'+p3),0.0))
 		avgRating1 = sumRating1/len(courseDict[course])
 		avgRating2 = sumRating2/len(courseDict[course])
 		avgRating3 = sumRating3/len(courseDict[course])
