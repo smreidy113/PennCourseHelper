@@ -61,10 +61,10 @@ def rankedCoursesMultiple(l,p1,p2,p3):
 	s = []
 	for dept in l:
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
-		s.append(rankedCourses(revinfo,p1,p2,p3))
+		s.extend(rankedCourses(revinfo,p1,p2,p3))
 	s.sort(key=lambda x:x[1])
+	print s
 	return s
-
 def schedule(sectors, optional_major_courses, required):
 	l = []
 	l += required

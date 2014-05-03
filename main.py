@@ -98,13 +98,11 @@ def choose_course():
 def listcourses():
 	html = ""
 	html += startCode()
-	print request.form
-	req1 = requests.get('http://api.penncoursereview.com/v1/depts/' + request.form['dept1'] + '/reviews?token=' + api_key)
+	print request.form.getlist('dept1')
 	p1 = request.form['priority1']
 	p2 = request.form['priority2']
 	p3 = request.form['priority3']
-	revinfo = req1.json()['result']['values']
-	s = Methods.rankedCourses(revinfo,p1,p2,p3)
+	s = Methods.rankedCoursesMultiple(request.form.getlist('dept1'),p1,p2,p3)
 	for course in s:
 		html += "<br>" + course[0] + " " + str(course[1])
 	#for course in Methods.courseList(request.form['coursestaken']):
