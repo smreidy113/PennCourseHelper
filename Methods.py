@@ -39,22 +39,22 @@ def rankedCourses(revinfo,p1,p2,p3):
 			if (Data.attrs[key(p1)][1]):
 				sumRating1 += float(section['ratings'].get(str('r'+p1),0.0))
 			else:
-				sumRating1 += float(4 - section['ratings'].get(str('r'+p1),0.0))
+				sumRating1 += float(4 - float(section['ratings'].get(str('r'+p1),0.0)))
 			if (Data.attrs[key(p2)][1]):
 				sumRating2 += float(section['ratings'].get(str('r'+p2),0.0))
 			else:
-				sumRating2 += float(4 - section['ratings'].get(str('r'+p2),0.0))
+				sumRating2 += float(4 - float(section['ratings'].get(str('r'+p2),0.0)))
 			if (Data.attrs[key(p3)][1]):
 				sumRating3 += float(section['ratings'].get(str('r'+p3),0.0))
 			else:
-				sumRating3 += float(4 - section['ratings'].get(str('r'+p3),0.0))
+				sumRating3 += float(4 - float(section['ratings'].get(str('r'+p3),0.0)))
 		avgRating1 = sumRating1/len(courseDict[course])
 		avgRating2 = sumRating2/len(courseDict[course])
 		avgRating3 = sumRating3/len(courseDict[course])
-		ratingsDict[course] = (3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2) / 96 * 10
+		ratingsDict[course] = ((3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2) / 96 * 10,avgRating1,avgRating2,avgRating3)
 	#print ratingsDict.items()
 	s = ratingsDict.items()
-	s.sort(key=lambda x:x[1])
+	s.sort(key=lambda x:x[1][0])
 	return s
 
 def getSubset(s):
@@ -74,8 +74,7 @@ def rankedCoursesMultiple(l,p1,p2,p3):
 	for dept in l:
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
 		s.extend(rankedCourses(revinfo,p1,p2,p3))
-	s.sort(key=lambda x:x[1])
-	print s
+	s.sort(key=lambda x:x[1][0], reverse=True)
 	return s
 
 def printSchedule(l, year):
