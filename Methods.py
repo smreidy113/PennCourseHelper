@@ -3,6 +3,7 @@ import json
 import requests
 from requests.adapters import HTTPAdapter
 import random
+import Data
 
 api_key = 'q2cm13OPDbZAzvJHGxWgtqcI1ZFp6K'
 params = {'count': str(100)}
@@ -17,7 +18,7 @@ def courseList(s):
 		ans.append((match.group(1),match.group(2)))
 	return ans
 
-def rankedCourses(revinfo,p1,p2,p3, num_needed):
+def rankedCourses(revinfo,p1,p2,p3):
 	courseDict = {}
 	ratingsDict = {}
 	for course in revinfo:
