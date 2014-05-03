@@ -18,6 +18,11 @@ def courseList(s):
 		ans.append((match.group(1),match.group(2)))
 	return ans
 
+def key(p):
+	for k,v in Data.attrs.iteritems():
+		if p == v[0]:
+			return k
+
 def rankedCourses(revinfo,p1,p2,p3):
 	courseDict = {}
 	ratingsDict = {}
@@ -31,15 +36,15 @@ def rankedCourses(revinfo,p1,p2,p3):
 	for course in courseDict.keys():
 		sumRating1, sumRating2, sumRating3 = 0.0, 0.0, 0.0
 		for section in courseDict[course]:
-			if (Data.attrs[p1][1]):
+			if (Data.attrs[key(p1)][1]):
 				sumRating1 += float(section['ratings'].get(str('r'+p1),0.0))
 			else:
 				sumRating1 += float(4 - section['ratings'].get(str('r'+p1),0.0))
-			if (Data.attrs[p2][1]):
+			if (Data.attrs[key(p2)][1]):
 				sumRating2 += float(section['ratings'].get(str('r'+p2),0.0))
 			else:
 				sumRating2 += float(4 - section['ratings'].get(str('r'+p2),0.0))
-			if (Data.attrs[p3][1]):
+			if (Data.attrs[key(p3)][1]):
 				sumRating3 += float(section['ratings'].get(str('r'+p3),0.0))
 			else:
 				sumRating3 += float(4 - section['ratings'].get(str('r'+p3),0.0))
