@@ -127,7 +127,7 @@ def listcourses():
 
 @app.route('/chooseSchedule', methods=['POST'])
 def chooseSchedule():
-	html = StartCode()
+	html = startCode()
 	html += "Nothing here yet"
 	html += endCode()
 	return html
