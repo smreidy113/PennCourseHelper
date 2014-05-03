@@ -99,8 +99,24 @@ def listcourses():
 	p3 = request.form['priority3']
 	courses_taken = request.form['coursestaken']
 	s = Methods.rankedCoursesMultiple(request.form.getlist('dept1'),p1,p2,p3,courses_taken)
+	html += "\n\t\t<table>"
+	html += "\n\t\t\t<tr>"
+	html += "\n\t\t\t\t<td>Course Name</td>"
+	html += "\n\t\t\t\t<td>Overall Score</td>"
+	html += "\n\t\t\t\t<td>" + Methods.key(p1) + "</td>"
+	html += "\n\t\t\t\t<td>" + Methods.key(p2) + "</td>"
+	html += "\n\t\t\t\t<td>" + Methods.key(p3) + "</td>"
+	html += "\n\t\t\t</tr>"
 	for course in s:
-		html += "<br>" + course[0] + " " + str(course[1])
+		html += "\n\t\t\t<tr>"
+		html += "\n\t\t\t\t<td>" + str(course[0]) + "</td>"
+		html += "\n\t\t\t\t<td>" + str(course[1][0]) + "</td>"
+		html += "\n\t\t\t\t<td>" + str(course[1][1]) + "</td>"
+		html += "\n\t\t\t\t<td>" + str(course[1][2]) + "</td>"
+		html += "\n\t\t\t\t<td>" + str(course[1][3]) + "</td>"
+		html += "\n\t\t\t</tr>"
+		#html += "<br>" + course[0] + " " + str(course[1])
+	html += "\n\t\t</table>"
 	#for course in Methods.courseList(request.form['coursestaken']):
 	#	html += course[0]
 	html += endCode()
