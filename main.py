@@ -78,15 +78,15 @@ def choose_course():
 	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
 	html += "\n\t\t\t1st Priority: <select name=\"priority1\">"
 	for prior in Data.attrs.keys():
-		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior] + "\">" + prior + "</option>"
+		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\t2nd Priority: <select name=\"priority2\">"
 	for prior in Data.attrs.keys():
-		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior] + "\">" + prior + "</option>"
+		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\t3rd Priority: <select name=\"priority3\">"
 	for prior in Data.attrs.keys():
-		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior] + "\">" + prior + "</option>"
+		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
 	
 	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"

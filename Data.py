@@ -1,6 +1,6 @@
-attrs = {"Course Quality": r'CourseQuality', "Instructor Quality": r'InstructorQuality', "Difficulty": r'Difficulty', "Communication Ability": r'CommAbility', "Amount Learned": r'AmountLearned', "Work Required": r'WorkRequired'}
+# Boolean refers to whether it's a ositive attribute
+attrs = {"Course Quality": (r'CourseQuality', True), "Instructor Quality": (r'InstructorQuality', True), "Difficulty": (r'Difficulty', False), "Amount Learned": (r'AmountLearned', True), "Work Required": (r'WorkRequired', False)}
 majors = ["Bioengineering", "CBE", "Computer Engineering", "Computer Science", "Digital Media Design", "Electrical Engineering", "Materials Science and Engineering", "MEAM", "Networked & Social Systems Engineering", "Systems Science and Engineering"] 
-minors = [x for x in majors]
 
 # Each major ordered according to: {Major : [{Required : [required courses]}, {Optional: [(total optional credits need, total needed beyond a certain level, level), optional courses]}]}
 # Class written as: (ID, credits, [prereqs], [coreqs])
