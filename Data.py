@@ -15,7 +15,7 @@ majors = ["Bioengineering", "CBE", "Computer Engineering", "Computer Science",
 # {Optional: [(total optional credits need, total needed beyond a certain level, level), 
 # optional courses]}]}
 # Class written as: (ID, credits, [prereqs], [coreqs])
-major_courses = {"Bioengineering" : [{ "Required" : [("Math104", 1, [], []), 
+major_courses = {"Bioengineering" : [{ "Required" : [("MATH104", 1, [], []), 
     ("MATH114", 1, ["MATH104"], []), ("MATH240", 1, ["MATH114", "MATH104"], []), 
     ("MATH241", 1, ["MATH240", "MATH114", "MATH104"], []), ("ENM321", 1, [], []), 
     ("BIOL121", 1, ["CHEM101"], ["BIOL123"]), ("BIOL123", .5, [], ["BIOL121"]), 
