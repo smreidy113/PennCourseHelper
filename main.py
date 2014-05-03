@@ -94,7 +94,7 @@ def choose_course():
 def listcourses():
 	html = ""
 	html += startCode()
-	print request.form.getlist('dept1')
+	#print request.form.getlist('dept1')
 	p1 = request.form['priority1']
 	p2 = request.form['priority2']
 	p3 = request.form['priority3']
