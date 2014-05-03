@@ -64,7 +64,7 @@ def complete_schedule():
 def choose_course():
 	js = req.json()['result']
 	html = startCode()
-	html += "\n\t\tSelect a department:"
+	html += "\n\t\tSelect departments you want to choose a course from:"
 	html += "\n\t\t<form name=\"myform\" action=\"listcourses\" method=\"POST\">"
 	html += "\n\t\t\t<select multiple name=\"dept1\">"
 	for dept in js['values']:
@@ -102,7 +102,8 @@ def listcourses():
 	p1 = request.form['priority1']
 	p2 = request.form['priority2']
 	p3 = request.form['priority3']
-	s = Methods.rankedCoursesMultiple(request.form.getlist('dept1'),p1,p2,p3)
+	courses_taken = request.form['coursestaken']
+	s = Methods.rankedCoursesMultiple(request.form.getlist('dept1'),p1,p2,p3,courses_taken)
 	for course in s:
 		html += "<br>" + course[0] + " " + str(course[1])
 	#for course in Methods.courseList(request.form['coursestaken']):

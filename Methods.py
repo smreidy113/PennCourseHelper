@@ -69,12 +69,17 @@ def getSubset(s):
 			s.remove(s[i])
 		return l
 
-def rankedCoursesMultiple(l,p1,p2,p3):
+def rankedCoursesMultiple(l,p1,p2,p3, taken):
 	s = []
 	for dept in l:
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
 		s.extend(rankedCourses(revinfo,p1,p2,p3))
 	s.sort(key=lambda x:x[1])
+	for course in taken:
+		try:
+			s.remove(course)
+		except:
+			continue
 	print s
 	return s
 
