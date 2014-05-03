@@ -74,9 +74,7 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 	for dept in l:
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
 		s.extend(rankedCourses(revinfo,p1,p2,p3))
-<<<<<<< HEAD
 	s.sort(key=lambda x:x[1][0], reverse=True)
-=======
 	s.sort(key=lambda x:x[1])
 	for course in taken:
 		try:
@@ -84,7 +82,6 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 		except:
 			continue
 	print s
->>>>>>> 98dabecada60dc9ad897e8dbd292c7d97dc4c1d6
 	return s
 
 def printSchedule(l, year):
