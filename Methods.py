@@ -30,7 +30,7 @@ def rankedCourses(revinfo,p1,p2,p3, num_needed):
 	for course in courseDict.keys():
 		sumRating1, sumRating2, sumRating3 = 0.0, 0.0, 0.0
 		for section in courseDict[course]:
-			if (Data.atts[p1][1]):
+			if (Data.attrs[p1][1]):
 				sumRating1 += float(section['ratings'].get(str('r'+p1),0.0))
 			else:
 				sumRating1 += float(4 - section['ratings'].get(str('r'+p1),0.0))
@@ -70,7 +70,7 @@ def schedule(sectors, optional_major_courses, required):
 	l += required
 	sorted_sectors = [] 
 	for x in sectors:
-		sorted_sectors.append sorted(x, key=lambda x: x[1])
+		sorted_sectors.append(sorted(x, key=lambda x: x[1]))
 	sorted_optional_major_courses = sorted(optional_major_courses, key=lambda x: x[1])
 
 
