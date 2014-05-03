@@ -79,7 +79,7 @@ def rankedCoursesMultiple(l,p1,p2,p3):
 	return s
 
 def printSchedule(l, year):
-	sorted_classes = sorted(l, key=lambda x: int(x[-3:])
+	sorted_classes = sorted(l, key=lambda x: int(x[-3:]))
 	num_per_semester = len(l) / (2 * (year - 2014))
 	for i in range(year*2):
 		html += "Semester" + str(i) + "\n"
