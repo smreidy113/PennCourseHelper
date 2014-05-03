@@ -37,9 +37,40 @@ def endCode():
 
 @app.route('/')
 def start():	
-	js = req.json()['result']
+
 	html = ""
 	html += startCode()
+	html += "\n\t\t<a href=\"complete_schedule\">Complete my schedule</a>"
+	html += "\n\t\t<br><a href=\"choose_course\">Recommend a course</a>"
+	html += endCode()
+	return html
+
+@app.route('/complete_schedule')
+def complete_schedule():
+	html = ""
+	html += startCode()
+	html += "\n\t\t<form name=\"myform\" action=\"chooseSchedule\" method=\"POST\">"
+	html += "\n\t\tSelect your major:"
+	html += "\n\t\t\t<select name=\"major\">"
+	for major in Data.majors:
+		html += "\n\t\t\t\t<option value=\"" + major + "\">" + major + "</option>"
+	html += "\n\t\t\t</select>"
+	html += "\n\t\t\t</select>"
+	html += "\n\t\tSelect your minor:"
+	html += "\n\t\t\t<select name=\"minor\">"
+	for minor in Data.minors:
+		html += "\n\t\t\t\t<option value=\"" + minor + "\">" + minor + "</option>"
+	html += "\n\t\t\t</select>"
+	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
+	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
+	html += "\n\t\t</form>"
+	html += endCode()
+	return html
+
+@app.route('/choose_course')
+def choose_course():
+	js = req.json()['result']
+	html = startCode()
 	html += "\n\t\tSelect a department:"
 	html += "\n\t\t<form name=\"myform\" action=\"listcourses\" method=\"POST\">"
 	html += "\n\t\t\t<select name=\"dept1\">"
@@ -59,17 +90,7 @@ def start():
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\tSelect your major:"
-	html += "\n\t\t\t<select name=\"major\">"
-	for major in Data.majors:
-		html += "\n\t\t\t\t<option value=\"" + major + "\">" + major + "</option>"
-	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t</select>"
-	html += "\n\t\tSelect your minor:"
-	html += "\n\t\t\t<select name=\"minor\">"
-	for minor in Data.minors:
-		html += "\n\t\t\t\t<option value=\"" + minor + "\">" + minor + "</option>"
-	html += "\n\t\t\t</select>"
+	
 	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
 	html += "\n\t\t</form>"
 	html += endCode()
@@ -85,6 +106,12 @@ def listcourses():
 	html += endCode()
 	return html
 
+@app.route('/chooseSchedule', methods=['POST'])
+def chooseSchedule():
+	html = StartCode()
+	html += "Nothing here yet"
+	html += endCode()
+	return html
 
 #req = requests.get('http://api.penncoursereview.com/v1/coursehistories/CIS-110?token=' + api_key)
 
