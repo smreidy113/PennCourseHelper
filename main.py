@@ -37,11 +37,10 @@ def endCode():
 
 @app.route('/')
 def start():	
-
-	html = ""
+	html = "<br>" + "Welcome to PenngineeringCourseHelper!" + "</br>"
 	html += startCode()
 	html += "\n\t\t<a href=\"complete_schedule\">Complete my schedule</a>"
-	html += "\n\t\t<br><a href=\"choose_course\">Recommend a course</a>"
+	html += "\n\t\t<br><a href=\"choose_course\">Decide on a course</a>"
 	html += endCode()
 	return html
 
@@ -54,12 +53,6 @@ def complete_schedule():
 	html += "\n\t\t\t<select name=\"major\">"
 	for major in Data.majors:
 		html += "\n\t\t\t\t<option value=\"" + major + "\">" + major + "</option>"
-	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t</select>"
-	html += "\n\t\tSelect your minor:"
-	html += "\n\t\t\t<select name=\"minor\">"
-	for minor in Data.minors:
-		html += "\n\t\t\t\t<option value=\"" + minor + "\">" + minor + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
 	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
@@ -76,6 +69,11 @@ def choose_course():
 	html += "\n\t\t\t<select name=\"dept1\">"
 	for dept in js['values']:
 		html += "\n\t\t\t\t<option value=\"" + dept['id'] + "\">" + dept['id'] + " - " + dept['name'] + "</option>"
+	html += "\n\t\t\t</select>"
+	html += "\n\t\tSelect your major:"
+	html += "\n\t\t\t<select name=\"major\">"
+	for major in Data.majors:
+		html += "\n\t\t\t\t<option value=\"" + major + "\">" + major + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
 	html += "\n\t\t\t1st Priority: <select name=\"priority1\">"
