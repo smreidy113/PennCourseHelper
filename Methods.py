@@ -51,13 +51,20 @@ def rankedCourses(revinfo,p1,p2,p3):
 		avgRating1 = sumRating1/len(courseDict[course])
 		avgRating2 = sumRating2/len(courseDict[course])
 		avgRating3 = sumRating3/len(courseDict[course])
-		ratingsDict[course] = ((3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2) / 96 * 10,avgRating1,avgRating2,avgRating3)
+		overallRank = (3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2) / 96 * 10
+		if not Data.attrs[key(p1)][1]:
+			avgRating1 = 4 - avgRating1
+		if not Data.attrs[key(p1)][1]:
+			avgRating2 = 4 - avgRating2
+		if not Data.attrs[key(p1)][1]:
+			avgRating3 = 4 - avgRating3
+		ratingsDict[course] = (overallRank,avgRating1,avgRating2,avgRating3)
 	#print ratingsDict.items()
 	s = ratingsDict.items()
 	s.sort(key=lambda x:x[1][0])
 	return s
 
-def getSubset(s):
+def getSubset(s,num_needed):
 	# return subset
 	if num_needed < len(s):
 		return [x[0] for x in s]
@@ -80,7 +87,7 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 			s.remove(course)
 		except:
 			continue
-	print s
+	#print s
 	return s
 
 def printSchedule(l, year):
