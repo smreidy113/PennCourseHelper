@@ -2,6 +2,7 @@ import re
 import json
 import requests
 from requests.adapters import HTTPAdapter
+import random
 
 api_key = 'q2cm13OPDbZAzvJHGxWgtqcI1ZFp6K'
 params = {'count': str(100)}
@@ -16,7 +17,7 @@ def courseList(s):
 		ans.append((match.group(1),match.group(2)))
 	return ans
 
-def rankedCourses(revinfo,p1,p2,p3):
+def rankedCourses(revinfo,p1,p2,p3, num_needed):
 	courseDict = {}
 	ratingsDict = {}
 	for course in revinfo:
@@ -29,7 +30,10 @@ def rankedCourses(revinfo,p1,p2,p3):
 	for course in courseDict.keys():
 		sumRating1, sumRating2, sumRating3 = 0.0, 0.0, 0.0
 		for section in courseDict[course]:
-			sumRating1 += float(section['ratings'].get(str('r'+p1),0.0))
+			if (Data.atts[p1][1]):
+				sumRating1 += float(section['ratings'].get(str('r'+p1),0.0))
+			else:
+				sumRating1 += float(4 - section['ratings'].get(str('r'+p1),0.0))
 			sumRating2 += float(section['ratings'].get(str('r'+p2),0.0))
 			sumRating3 += float(section['ratings'].get(str('r'+p3),0.0))
 		avgRating1 = sumRating1/len(courseDict[course])
@@ -41,6 +45,18 @@ def rankedCourses(revinfo,p1,p2,p3):
 	s.sort(key=lambda x:x[1])
 	return s
 
+def getSubset(s):
+	# return subset
+	if num_needed < len(s):
+		return [x[0] for x in s]
+	else:
+		l = []
+		for _ in range(num_needed):
+			i = random.randint(0, num_needed)
+			l.append(s[i][0])
+			s.remove(s[i])
+		return l
+
 def rankedCoursesMultiple(l,p1,p2,p3):
 	s = []
 	for dept in l:
@@ -48,3 +64,17 @@ def rankedCoursesMultiple(l,p1,p2,p3):
 		s.append(rankedCourses(revinfo,p1,p2,p3))
 	s.sort(key=lambda x:x[1])
 	return s
+
+def schedule(sectors, optional_major_courses, required):
+	l = []
+	l += required
+	sorted_sectors = [] 
+	for x in sectors:
+		sorted_sectors.append sorted(x, key=lambda x: x[1])
+	sorted_optional_major_courses = sorted(optional_major_courses, key=lambda x: x[1])
+
+
+
+
+
+
