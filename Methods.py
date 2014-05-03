@@ -69,21 +69,33 @@ def getSubset(s):
 			s.remove(s[i])
 		return l
 
-def rankedCoursesMultiple(l,p1,p2,p3):
+def rankedCoursesMultiple(l,p1,p2,p3, taken):
 	s = []
 	for dept in l:
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
 		s.extend(rankedCourses(revinfo,p1,p2,p3))
+<<<<<<< HEAD
 	s.sort(key=lambda x:x[1][0], reverse=True)
+=======
+	s.sort(key=lambda x:x[1])
+	for course in taken:
+		try:
+			s.remove(course)
+		except:
+			continue
+	print s
+>>>>>>> 98dabecada60dc9ad897e8dbd292c7d97dc4c1d6
 	return s
 
 def printSchedule(l, year):
+	if (year <= 2014):
+		html += "You've graduated. You have no more semesters to take classes."
 	sorted_classes = sorted(l, key=lambda x: int(x[-3:]))
 	num_per_semester = len(l) / (2 * (year - 2014))
 	for i in range(year*2):
-		html += "Semester" + str(i) + "\n"
+		html += "<br> Semester" + str(i) + "</br>"
 		for j in range(num_per_semester):
-			html += sorted_classes[i * num_per_semester + j] + "\n"
+			html += "<br>" + sorted_classes[i * num_per_semester + j] + "</br>"
 	
 
 
