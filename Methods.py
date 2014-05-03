@@ -67,13 +67,11 @@ def rankedCourses(revinfo,p1,p2,p3):
 def getSubset(s,num_needed):
 	# return subset
 	if num_needed < len(s):
-		return [x[0] for x in s]
+		return [x for x in s]
 	else:
 		l = []
-		for _ in range(num_needed):
-			i = random.randint(0, num_needed)
-			l.append(s[i][0])
-			s.remove(s[i])
+		for i in range(num_needed):
+			l.append(s[i])
 		return l
 
 def rankedCoursesMultiple(l,p1,p2,p3, taken):

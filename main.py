@@ -70,6 +70,7 @@ def choose_course():
 	for dept in js['values']:
 		html += "\n\t\t\t\t<option value=\"" + dept['id'] + "\">" + dept['id'] + " - " + dept['name'] + "</option>"
 	html += "\n\t\t\t</select>"
+	html += "\n\t\t\t</select>"
 	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
 	html += "\n\t\t\t1st Priority: <select name=\"priority1\">"
 	for prior in Data.attrs.keys():
