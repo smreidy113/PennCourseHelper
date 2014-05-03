@@ -1,14 +1,5 @@
 attrs = {"Course Quality": r'CourseQuality', "Instructor Quality": r'InstructorQuality', "Difficulty": r'Difficulty', "Communication Ability": r'CommAbility', "Amount Learned": r'AmountLearned', "Work Required": r'WorkRequired'}
-<<<<<<< HEAD
-majors = ["Accounting", "Business Economic and Public Policy"]
-minors = ["N/A", "Computer Science"]
-
-=======
 majors = ["Bioengineering", "CBE", "Computer Engineering", "Computer Science", "Digital Media Design", "Electrical Engineering", "Materials Science and Engineering", "MEAM", "Networked & Social Systems Engineering", "Systems Science and Engineering"] 
 minors = [x for x in majors]
-<<<<<<< HEAD
 
-major_courses = {"Bioengineering" : [{ "Required" : [("Math104", 1, 0), ("MATH114", 1, 1), ("MATH240", 1, 2), ("MATH241", 1, 3), ("ENM321", 1, 0), ] ]}
-=======
->>>>>>> 7676bc21dc713c7f31eaa7dfca0a018d6483e79d
->>>>>>> FETCH_HEAD
+major_courses = {"Bioengineering" : [{ "Required" : [("Math104", 1, [], []), ("MATH114", 1, ["MATH104"], []), ("MATH240", 1, ["MATH114", "MATH104"], []), ("MATH241", 1, ["MATH240", "MATH114", "MATH104"], []), ("ENM321", 1, [], []), ("BIOL121", 1, ["CHEM101"], ["BIOL123"]), ("BIOL123", .5, [], ["BIOL121"]), ("BIOL202", 1, ["BIOL121"], []), ("CHEM101", 1, [], ["CHEM053"]), ("CHEM053", .5, [], ["CHEM101"]), ("CHEM102", 1, ["CHEM101"], ["CHEM054"]), ("CHEM054", .5, [], ["CHEM102"]), ("PHYS140", 1, [], ["MATH104"]), ("PHYS141", 1, ["PHYS140"], ["MATH114"]), ("BE100", .5, [], ["MATH104", "PHYS140"]), ("BE101", .5, [], []), ("ENGR105", 1, [], []), ("BE200", 1, ["MATH104", "MATH114", "PHYS140"], ["MATH240"]), ("BE220", 1, ["BE200", "CHEM101", "CHEM102"], []), ("BE301", 1, ["MATH241"], []), ("BE305", 1, ["MATH241"], []), ("BE309", 1, [], ["BE301","BE324"]), ("BE310", 1, [], ["BE350"]), ("BE324", 1, ["PHYS140", "PHYS141", "MATH240", "CHEM101", "CHEM102"], []), ("BE350", 1, ["MATH241", "PHYS140"], []), ("BE495", 1, [], []), ("BE496", 1, [], [])]}, {"Optional" : []}]} ]}
