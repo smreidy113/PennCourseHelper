@@ -97,8 +97,3 @@ def printSchedule(l, year):
 		html += "<br> Semester" + str(i) + "</br>"
 		for j in range(num_per_semester):
 			html += "<br>" + sorted_classes[i * num_per_semester + j] + "</br>"
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> FETCH_HEAD
