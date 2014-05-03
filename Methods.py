@@ -72,13 +72,15 @@ def rankedCoursesMultiple(l,p1,p2,p3):
 	s.sort(key=lambda x:x[1])
 	print s
 	return s
-def schedule(sectors, optional_major_courses, required):
-	l = []
-	l += required
-	sorted_sectors = [] 
-	for x in sectors:
-		sorted_sectors.append(sorted(x, key=lambda x: x[1]))
-	sorted_optional_major_courses = sorted(optional_major_courses, key=lambda x: x[1])
+
+def printSchedule(l, year):
+	sorted_classes = sorted(l, key=lambda x: int(x[-3:])
+	num_per_semester = len(l) / (2 * (year - 2014))
+	for i in range(year*2):
+		html += "Semester" + str(i) + "\n"
+		for j in range(num_per_semester):
+			html += sorted_classes[i * num_per_semester + j] + "\n"
+	
 
 
 
