@@ -100,6 +100,8 @@ def listcourses():
 	p3 = request.form['priority3']
 	courses_taken = request.form['coursestaken']
 	s = Methods.rankedCoursesMultiple(request.form.getlist('dept1'),p1,p2,p3,courses_taken)
+	top_courses = Methods.getSubset(s, 5)
+	html += "<br>" + "Here are your top " + str(len(top_courses)) + " recommendations"
 	html += "\n\t\t<table>"
 	html += "\n\t\t\t<tr>"
 	html += "\n\t\t\t\t<td>Course Name</td>"
@@ -108,7 +110,7 @@ def listcourses():
 	html += "\n\t\t\t\t<td>" + Methods.key(p2) + "</td>"
 	html += "\n\t\t\t\t<td>" + Methods.key(p3) + "</td>"
 	html += "\n\t\t\t</tr>"
-	for course in s:
+	for course in top_courses:
 		html += "\n\t\t\t<tr>"
 		html += "\n\t\t\t\t<td>" + str(course[0]) + "</td>"
 		html += "\n\t\t\t\t<td>" + str(course[1][0]) + "</td>"

@@ -66,7 +66,7 @@ def rankedCourses(revinfo,p1,p2,p3):
 
 def getSubset(s,num_needed):
 	# return subset
-	if num_needed < len(s):
+	if num_needed > len(s):
 		return [x for x in s]
 	else:
 		l = []
