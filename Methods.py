@@ -13,9 +13,9 @@ s.mount('http://', HTTPAdapter(max_retries=5))
 def courseList(s):
 	s = s + ","
 	ans = []
-	e = r'([A-Z]{2,4}).*?([0-9]{3}),'
+	e = r'([A-Za-z]{2,4}).*?([0-9]{3}),'
 	for match in re.finditer(e,s):
-		ans.append((match.group(1),match.group(2)))
+		ans.append((match.group(1).upper(),match.group(2)))
 	return ans
 
 def key(p):
@@ -76,15 +76,18 @@ def getSubset(s,num_needed):
 
 def rankedCoursesMultiple(l,p1,p2,p3, taken):
 	s = []
+	print taken
 	for dept in l:
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
 		s.extend(rankedCourses(revinfo,p1,p2,p3))
 	s.sort(key=lambda x:x[1][0], reverse=True)
+	courseNameList = [i[0] for i in s]
+	print courseNameList
 	for course in taken:
-		try:
-			s.remove(course)
-		except:
-			continue
+		courseStr = course[0] + "-" + course[1]
+		print courseStr
+		if courseStr in courseNameList:
+			s = [(name,scores) for name,scores in s if name != courseStr]
 	#print s
 	return s
 
