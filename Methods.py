@@ -96,18 +96,18 @@ required = {}
 optional = {}
 
 def getMajorCourses(major, taken, p1, p2, p3):
-	opt_credits_needed = majors[major][0]["Optional"][0][0]
-	level = majors[major][0]["Optional"][0][2]
-	needed_in_level = majors[major][0]["Optional"][0][1]
-	for course in majors[major][0]["Required"]:
-		if not taken.contins(course[0]):
+	opt_credits_needed = Data.majors[major][0]["Optional"][0][0]
+	level = Data.majors[major][0]["Optional"][0][2]
+	needed_in_level = Data.majors[major][0]["Optional"][0][1]
+	for course in Data.majors[major][0]["Required"]:
+		if not taken.contains(course[0]):
 			required[course[0]] = course[1:]
 	for opt_course in majors[major][0]["Optional"][1:]:
 		if not taken.contains.contains(course[0]):
 			optional[opt_course[0]] = optional[opt_course[1:]]
 		else:
 			opt_credits_needed -= opt_course[1]
-			if course[0][-3] == level[0]
+			if course[0][-3] == level[0]:
 				needed_in_level -= opt_course[1]
 	ranked_opt = [x[0] for x in rankedCoursesMultiple(optional.keys(), p1, p2, p3, taken)]
 	opt_courses = []
@@ -137,7 +137,7 @@ def getMajorCourses(major, taken, p1, p2, p3):
 								optional[x[0]]
 								break
 		if credits > opt_credits_needed:
-			 needed_in_level > level_credits:
+			 if needed_in_level > level_credits:
 				iter2 = iter - 1
 				if opt_courses[iter][-3] != level[0]:
 					worst_curr_class = opt_courses[iter]
@@ -149,7 +149,7 @@ def getMajorCourses(major, taken, p1, p2, p3):
 	return courses
 
 def getSectorCourses():
-
+	pass
 
 def printSchedule(l, year):
 	if (year <= 2014):

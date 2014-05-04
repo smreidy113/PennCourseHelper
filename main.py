@@ -55,6 +55,18 @@ def complete_schedule():
 		html += "\n\t\t\t\t<option value=\"" + major + "\">" + major + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
+	html += "\n\t\t\t1st Priority: <select name=\"priority1\">"
+	for prior in Data.attrs.keys():
+		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
+	html += "\n\t\t\t</select>"
+	html += "\n\t\t\t2nd Priority: <select name=\"priority2\">"
+	for prior in Data.attrs.keys():
+		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
+	html += "\n\t\t\t</select>"
+	html += "\n\t\t\t3rd Priority: <select name=\"priority3\">"
+	for prior in Data.attrs.keys():
+		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
+	html += "\n\t\t\t</select>"
 	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
 	html += "\n\t\t</form>"
 	html += endCode()
@@ -129,7 +141,8 @@ def listcourses():
 @app.route('/chooseSchedule', methods=['POST'])
 def chooseSchedule():
 	html = startCode()
-	html += "Nothing here yet"
+	taken = [i[0]+i[1] for i in Methods.courseList(request.form['coursestaken'])]
+	print Methods.getMajorCourses(request.form['major'],taken,request.form['priority1'],request.form['priority2'],request.form['priority3'])
 	html += endCode()
 	return html
 
