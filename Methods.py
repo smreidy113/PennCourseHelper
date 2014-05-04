@@ -20,6 +20,7 @@ def courseList(s):
 
 def findInClass(major,code):
 	for course in Data.major_courses[major]["Required"]:
+		print code
 		if code == course[0]:
 			return course
 	for course in Data.major_courses[major]["Optional"]:
@@ -155,12 +156,12 @@ def getMajorCourses(major, taken, p1, p2, p3):
 	while credits < opt_credits_needed and level_credits < needed_in_level:
 		course = ranked_opt[i][0]
 		opt_courses.append(course)
-		credits += findInClass(major, optional[course])[1]
+		credits += optional[course][0]
 		if course[-3] == level[0]:
-			opt_courses.append[course]
-			credits += optional[course[0]]
+			opt_courses.append(course)
+			credits += optional[course][0]
 		if int(course[-3]) >= int(level[0]):
-			level_credits += optional[course[0]]
+			level_credits += optional[course][0]
 		i += 1
 		if credits > opt_credits_needed:
 			for x in opt_courses:
