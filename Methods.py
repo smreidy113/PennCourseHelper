@@ -160,8 +160,8 @@ def printSchedule(l, year):
 	if (year <= 2014):
 		html += "You've graduated. You have no more semesters to take classes."
 	sorted_courses = l
-	num_per_semester = len(l) / (2 * (year - 2014))
-	for i in range(year*2):
+	num_per_semester = float(len(l)) / (2 * (year - 2014))
+	for i in range((year-2014)*2):
 		html += "<br> Semester" + str(i) + "</br>"
 		sorted_corses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
 		credits = 0
@@ -180,7 +180,10 @@ def printSchedule(l, year):
 				sorted_courses.remove(course)
 				continue
 			else:
+				classes.append(course)
+				credits += optionalRequiredUnknown(course, 0)
 				for coreq in optionalRequiredUnknown(course, 2):
+<<<<<<< HEAD
 					classes.append(coreq)
 					credits += optionalRequiredUnknown(coreq, 0)
 					try:
@@ -190,6 +193,16 @@ def printSchedule(l, year):
 			classes.append(course)
 			credits += optionalRequiredUnknown(course, 0)
 			course_i += 1
+=======
+					if not taken.contains(coreq) and not courses.contains(coreq):
+						classes.append(coreq)
+						credits += optionalRequiredUnknown(coreq, 0)
+						try:
+							sorted_classes.remove(coreq)
+						except:
+							pass
+			course_iter += 1
+>>>>>>> 812706e2ca13368fac36abcd20c5c462c335810c
 		taken.extend(courses)
 		for course in courses:
 			html += "<br>" + course + "</br>"

@@ -11,9 +11,9 @@ majors = ["Bioengineering", "CBE", "Computer Engineering", "Computer Science",
      "Networked & Social Systems Engineering", 
      "Systems Science and Engineering"] 
 
-# Each major ordered according to: {Major : [{Required : [required courses]}, 
-# {Optional: [(total optional credits need, total needed beyond a certain level, level), 
-# optional courses]}]}
+# Each major ordered according to: Major : {Required : [required courses], 
+# Optional: [(total optional credits need, total needed beyond a certain level, level), 
+# optional courses]}
 # Class written as: (ID, credits, [prereqs], [coreqs])
 major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []), 
     ("MATH114", 1, ["MATH104"], []), ("MATH240", 1, ["MATH114", "MATH104"], []), 
@@ -87,5 +87,38 @@ major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []),
     ("CIS553", 1, ["CIS121"], []), ("CIS534", 1, ["CIS371"], []),
     ("CIS400", 1, [], []), ("CIS401", 1, ["CIS400"], [])],
 
-    "Optional" : [(0, 0, "000")]}}
+    "Optional" : [(0, 0, "000")]},
+
+    "Computer Science" : {"Required" :
+    [("MATH104", 1, [], []), ("MATH114", 1, ["MATH104"], []),
+    ("CIS160", 1, [], []), ("CIS261", 1, ["CIS160"], []),
+    ("PHYS140", 1, [], ["MATH104"]), 
+    ("PHYS141", 1, ["PHYS140"], ["MATH114"]),
+    ("CIS110", 1, [], []), ("CIS120", 1, [], []), 
+    ("CIS121", 1, ["CIS120", "CIS160"], []),
+    ("CIS240", 1, [], []), ("CIS262", 1, ["CIS160"], []),
+    ("CIS320", 1, ["CIS120", "CIS121", "CIS160", "CIS262"], []),
+    (("ESE350", 1, [], []), ("CIS371", 1, ["CIS240"], []),
+    ("CIS380", 1, ["CIS240"], []),
+    ("CIS400", 1, [], []), ("CIS401", 1, ["CIS400"], [])],
+
+    "Optional" : [(0, 0, "000")]},
+    
+    "Digital Media Design" : {"Required" :
+    [("MATH104", 1, [], []), ("MATH114", 1, ["MATH104"], []),
+    ("CIS160", 1, [], []), ("CIS262", 1, ["CIS160"], []),
+    ("EAS205", 1, ["MATH114"], []), ("PHYS140", 1, [], ["MATH104"]), 
+    ("PHYS141", 1, ["PHYS140"], ["MATH114"]), ("CHEM101", 1, [], ["CHEM053"]), 
+    ("CHEM053", .5, [], ["CHEM101"]), ("BIOL101", 1, [], []),
+    ("CIS110", 1, [], []), ("CIS120", 1, [], []), 
+    ("CIS121", 1, ["CIS120", "CIS160"], []),
+    ("CIS240", 1, [], []), ("CIS277", 1, ["CIS120"], []),
+    ("CIS320", 1, ["CIS120", "CIS121", "CIS160", "CIS262"], []),
+    ("CIS460", 1, [], []), ("CIS455", 1, [], []),
+    ("CIS497", 1, [], [])],
+
+    "Optional" : []}
+
+    }
+
 
