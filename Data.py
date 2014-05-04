@@ -15,7 +15,7 @@ majors = ["Bioengineering", "CBE", "Computer Engineering", "Computer Science",
 # {Optional: [(total optional credits need, total needed beyond a certain level, level), 
 # optional courses]}]}
 # Class written as: (ID, credits, [prereqs], [coreqs])
-major_courses = {"Bioengineering" : [{ "Required" : [("MATH104", 1, [], []), 
+major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []), 
     ("MATH114", 1, ["MATH104"], []), ("MATH240", 1, ["MATH114", "MATH104"], []), 
     ("MATH241", 1, ["MATH240", "MATH114", "MATH104"], []), ("ENM321", 1, [], []), 
     ("BIOL121", 1, ["CHEM101"], ["BIOL123"]), ("BIOL123", .5, [], ["BIOL121"]), 
@@ -30,17 +30,17 @@ major_courses = {"Bioengineering" : [{ "Required" : [("MATH104", 1, [], []),
     ("BE309", 1, [], ["BE301","BE324"]), ("BE310", 1, [], ["BE350"]), 
     ("BE324", 1, ["PHYS140", "PHYS141", "MATH240", "CHEM101", "CHEM102"], []), 
     ("BE350", 1, ["MATH241", "PHYS140"], []), ("BE495", 1, [], []), 
-    ("BE496", 1, [], [])]}, 
+    ("BE496", 1, [], [])], 
 
-    {"Optional" : [(5, 2, "400"), ("BE099", 1, [], []), 
+    "Optional" : [(5, 2, "400"), ("BE099", 1, [], []), 
     ("BE225", 1, ["PHYS140"], []), ("BE303", 1, [], []), ("BE330", 1, ["CHEM102"], []), 
     ("BE400", 1, [], []), ("BE540", 1, [], []), ("BE441", 1, ["BIOL121"], []), 
     ("BE555", 1, [], []), ("BE445", 1, [], []), ("BE455", 1, ["MATH241"], []), 
     ("BE470", 1, [], []), ("BE480", 1, ["BE301"], []), ("BE583", 1, ["BE305"], []), 
-    ("BE486", 1, ["BE301"], []), ("BE490", 1, [], [])]}],
+    ("BE486", 1, ["BE301"], []), ("BE490", 1, [], [])]},
 
 
-    "Chemical and Biomolecular Engineering" : [{ "Required" : 
+    "Chemical and Biomolecular Engineering" : { "Required" : 
     [("MATH104", 1, [], []), ("CHEM101", 1, [], ["CHEM053"]), 
     ("CHEM053", .5, [], ["CHEM101"]), ("CBE150", 1, [], []), 
     ("PHYS140", 1, [], ["MATH104"]), ("CBE160", 1, [], []),
@@ -56,9 +56,9 @@ major_courses = {"Bioengineering" : [{ "Required" : [("MATH104", 1, [], []),
     ("CBE480", 1, [], []), ("CBE400", 1, ["CBE371"], []),
     ("CBE410", 1, ["CBE351", "CBE371"], []),
     ("CBE451", 1, ["CBE231", "CBE351"], []), 
-    ("CBE459", 1, ["CBE400"], []), ("CBE460", 1, ["CBE353"], [])]},
+    ("CBE459", 1, ["CBE400"], []), ("CBE460", 1, ["CBE353"], [])],
 
-    {"Optional" : [(2, 0, "000"), ("CBE099", 1, [], []),
+    "Optional" : [(2, 0, "000"), ("CBE099", 1, [], []),
     ("CBE111", 1, [], []), ("CBE375", 1, [], []),
     ("CBE510", 1, ["CBE231"], []), ("CBE479", 1, [], []),
     ("CBE508", 1, [], []), ("CBE511", 1, [], []),
@@ -69,10 +69,10 @@ major_courses = {"Bioengineering" : [{ "Required" : [("MATH104", 1, [], []),
     ("CBE554", 1, [], []), ("CBE555", 1, [], []),
     ("CBE557", 1, [], []), ("CBE562", 1, [], []),
     ("CBE563", 1, [], []), ("CBE564", 1, [], []),
-    ("CBE582", 1, [], [])]}],
+    ("CBE582", 1, [], [])]},
 
 
-    "Computer Engineering" : [{"Required" :
+    "Computer Engineering" : {"Required" :
     [("MATH104", 1, [], []), ("MATH114", 1, ["MATH104"], []), 
     ("MATH240", 1, ["MATH114", "MATH104"], []), ("CIS261", 1, ["CIS160"], []),
     ("CIS160", 1, [], []), ("PHYS150", 1.5, [], ["MATH104"]), 
@@ -85,7 +85,7 @@ major_courses = {"Bioengineering" : [{ "Required" : [("MATH104", 1, [], []),
     ("CIS350", 1, ["CIS240"], []), ("CIS371", 1, ["CIS240"], []),
     ("CIS380", 1, ["CIS240"], []), ("CIS441", 1, ["CIS240"], []),
     ("CIS553", 1, ["CIS121"], []), ("CIS534", 1, ["CIS371"], []),
-    ("CIS400", 1, [], []), ("CIS401", 1, ["CIS400"], [])]},
+    ("CIS400", 1, [], []), ("CIS401", 1, ["CIS400"], [])],
 
-    {"Optional" : [(0, 0, "000")]}]}
+    "Optional" : [(0, 0, "000")]}}
 

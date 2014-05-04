@@ -96,15 +96,15 @@ required = {}
 optional = {}
 
 def getMajorCourses(major, taken, p1, p2, p3):
-	opt_credits_needed = Data.majors[major][0]["Optional"][0][0]
-	level = Data.majors[major][0]["Optional"][0][2]
-	needed_in_level = Data.majors[major][0]["Optional"][0][1]
-	for course in Data.majors[major][0]["Required"]:
-		if not taken.contains(course[0]):
+	opt_credits_needed = Data.major_courses[major]["Optional"][0][0]
+	level = Data.major_courses[major]["Optional"][0][2]
+	needed_in_level = Data.major_courses[major]["Optional"][0][1]
+	for course in Data.major_courses[major]["Required"]:
+		if course[0] not in taken:
 			required[course[0]] = course[1:]
-	for opt_course in majors[major][0]["Optional"][1:]:
-		if not taken.contains.contains(course[0]):
-			optional[opt_course[0]] = optional[opt_course[1:]]
+	for opt_course in Data.major_courses[major]["Optional"][1:]:
+		if opt_course[0] not in taken:
+			optional[opt_course[0]] = opt_course[1:]
 		else:
 			opt_credits_needed -= opt_course[1]
 			if course[0][-3] == level[0]:

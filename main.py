@@ -142,6 +142,7 @@ def listcourses():
 def chooseSchedule():
 	html = startCode()
 	taken = [i[0]+i[1] for i in Methods.courseList(request.form['coursestaken'])]
+	print taken
 	print Methods.getMajorCourses(request.form['major'],taken,request.form['priority1'],request.form['priority2'],request.form['priority3'])
 	html += endCode()
 	return html
