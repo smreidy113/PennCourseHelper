@@ -151,70 +151,44 @@ def getMajorCourses(major, taken, p1, p2, p3):
 def printSchedule(l, year):
 	if (year <= 2014):
 		html += "You've graduated. You have no more semesters to take classes."
-<<<<<<< HEAD
-	sorted_classes = sorted(l, key=lambda x: int(x[-3:]))
-	num_per_semester = len(l) / (2 * (year - 2014))
-	for i in range(year*2):
-		html += "<br> Semester" + str(i) + "</br>"
-		
-=======
 	sorted_courses = l
 	num_per_semester = len(l) / (2 * (year - 2014))
 	for i in range(year*2):
 		html += "<br> Semester" + str(i) + "</br>"
 		sorted_corses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
->>>>>>> 4877b6d747a63a13a23862ba0d54f1dc5e649e8b
 		credits = 0
-		classes = []
-		while credits < num_per_semester and len(sorted_classes) != 0:
-			class = sorted_classes[0]
+		courses = []
+		course_iter = 0
+		need_prereq = []
+		while credits < num_per_semester and course_iter < len(sorted_courses):
+			course = sorted_courses[course_iter]
 			fulfills_prereq = true
-			for prereq in optionalRequiredUnknown(class, 1):
+			for prereq in optionalRequiredUnknown(course, 1):
 				if not taken.contains(prereq):
 					fulfills_prereq = false
 					break
 			if not fulfills_prereq:
-<<<<<<< HEAD
-=======
 				need_prereq.append[course]
 				sorted_courses.remove(course)
->>>>>>> 4877b6d747a63a13a23862ba0d54f1dc5e649e8b
 				continue
 			else:
-				for coreq in optionalRequiredUnknown(class, 2):
+				for coreq in optionalRequiredUnknown(course, 2):
 					classes.append(coreq)
 					credits += optionalRequiredUnknown(coreq, 0)
 					try:
 						sorted_classes.remove(coreq)
 					except:
 						pass
-<<<<<<< HEAD
-			classes.append(class)
-			credits += optionalRequiredUnknown(class, 0)
-			iter += 1
-		taken.extend(classes)
-		for class in classes:
-			sorted_classes.remove(class)
-=======
 			classes.append(course)
 			credits += optionalRequiredUnknown(course, 0)
 			course_iter += 1
 		taken.extend(courses)
 		for course in courses:
+			html += "<br>" + course + "</br>"
 			sorted_courses.remove(course)
->>>>>>> 4877b6d747a63a13a23862ba0d54f1dc5e649e8b
-					
-
-
-
-			
-
-		for j in range(num_per_semester):
-
-
-			html += "<br>" + sorted_classes[i * num_per_semester + j] + "</br>"
+		for course in need_prereq:
+			sorted_courses.append(course)
 	html += "<br>" + "Make sure you also fill your sector requirements!" + "</br>"
-
 
 
 def optionalRequiredUnknown(course, field):
