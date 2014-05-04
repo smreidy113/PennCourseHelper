@@ -144,8 +144,8 @@ def getMajorCourses(major, taken, p1, p2, p3):
 		opt_courses.append(course)
 		credits += optional[course[0]][0]
 		if course[-3] == level[0]:
-		opt_courses.append[course]
-		credits += optional[course[0]]
+			opt_courses.append[course]
+			credits += optional[course[0]]
 		if int(course[-3]) >= int(level[0]):
 			level_credits += optional[course[0]]
 		i += 1
