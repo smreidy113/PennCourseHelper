@@ -18,10 +18,23 @@ def courseList(s):
 		ans.append((match.group(1).upper(),match.group(2)))
 	return ans
 
+def findInClass(major,code):
+	for course in Data.major_courses[major]["Required"]:
+		if code == course[0]:
+			return course
+	for course in Data.major_courses[major]["Optional"]:
+		if code == course[0]:
+			return course
+
 def key(p):
 	for k,v in Data.attrs.iteritems():
 		if p == v[0]:
 			return k
+
+def removeDash(s):
+	e = r'([A-Za-z]{2,4}).*?([0-9]{3})'
+	for match in re.finditer(e,s):
+		return match.group(1) + match.group(2)
 
 def rankedCourses(revinfo,p1,p2,p3):
 	courseDict = {}
@@ -34,7 +47,7 @@ def rankedCourses(revinfo,p1,p2,p3):
 		else:
 			courseDict[courseName[0:-4]] = [course]
 			ratingsDict[courseName[0:-4]] = 0.0
-			altNamesDict[courseName[0:-4]] = [s[0:-4] for s in course['section']['aliases']]
+			altNamesDict[courseName[0:-4]] = [removeDash(s[0:-4]) for s in course['section']['aliases']]
 	print altNamesDict
 	for course in courseDict.keys():
 		sumRating1, sumRating2, sumRating3 = 0.0, 0.0, 0.0
@@ -96,7 +109,7 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 			for match in re.finditer(e,ind_course):
 				if match.group(1) not in l:
 					l.append(match.group(1))
-				ind_courses_temp.append(match.group(1) + "-" + match.group(2))
+				ind_courses_temp.append(match.group(1) + match.group(2))
 	ind_coures = ind_courses_temp
 	print "ind_courses:"
 	print ind_courses_temp
@@ -140,9 +153,9 @@ def getMajorCourses(major, taken, p1, p2, p3):
 	credits = 0
 	level_credits = 0
 	while credits < opt_credits_needed and level_credits < needed_in_level:
-		course = ranked_opt[i]
+		course = ranked_opt[i][0]
 		opt_courses.append(course)
-		credits += optional[course[0]][0]
+		credits += findInClass(major, optional[course])[1]
 		if course[-3] == level[0]:
 			opt_courses.append[course]
 			credits += optional[course[0]]
