@@ -155,18 +155,20 @@ def printSchedule(l, year):
 	num_per_semester = len(l) / (2 * (year - 2014))
 	for i in range(year*2):
 		html += "<br> Semester" + str(i) + "</br>"
-		
+
 		credits = 0
 		courses = []
+		course_iter = 0
+		need_prereq = []
 		while credits < num_per_semester and len(sorted_courses) != 0:
-			
-			course = sorted_courses[0]
+			course = sorted_courses[course_iter]
 			fulfills_prereq = true
 			for prereq in optionalRequiredUnknown(course, 1):
 				if not taken.contains(prereq):
 					fulfills_prereq = false
 					break
 			if not fulfills_prereq:
+				need_prereq.append[course]
 				continue
 			else:
 				for coreq in optionalRequiredUnknown(course, 2):
@@ -178,7 +180,7 @@ def printSchedule(l, year):
 						pass
 			classes.append(course)
 			credits += optionalRequiredUnknown(course, 0)
-			iter += 1
+			course_iter += 1
 		taken.extend(courses)
 		for course in courses:
 			sorted_courses.remove(class)
