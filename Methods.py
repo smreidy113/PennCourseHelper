@@ -26,6 +26,7 @@ def key(p):
 def rankedCourses(revinfo,p1,p2,p3):
 	courseDict = {}
 	ratingsDict = {}
+	altNamesDict = {}
 	for course in revinfo:
 		courseName = course['section']['primary_alias']
 		if courseName[0:-4] in courseDict.keys():
@@ -33,6 +34,8 @@ def rankedCourses(revinfo,p1,p2,p3):
 		else:
 			courseDict[courseName[0:-4]] = [course]
 			ratingsDict[courseName[0:-4]] = 0.0
+			altNamesDict[courseName[0:-4]] = [s[0:-4] for s in course['section']['aliases']]
+	print altNamesDict
 	for course in courseDict.keys():
 		sumRating1, sumRating2, sumRating3 = 0.0, 0.0, 0.0
 		for section in courseDict[course]:
@@ -61,6 +64,8 @@ def rankedCourses(revinfo,p1,p2,p3):
 		ratingsDict[course] = (overallRank,avgRating1,avgRating2,avgRating3)
 	#print ratingsDict.items()
 	s = ratingsDict.items()
+	for i in range(0,len(s)):
+		s[i] = (altNamesDict[s[i][0]],s[i][1])
 	s.sort(key=lambda x:x[1][0])
 	return s
 
@@ -74,17 +79,27 @@ def getSubset(s,num_needed):
 			l.append(s[i])
 		return l
 
+def isIn(a,b):
+	for i in a:
+		if i in b:
+			return True
+	return False
+
 def rankedCoursesMultiple(l,p1,p2,p3, taken):
 	s = []
 	if len(l[0]) > 4:
 		ind_courses = l
 		l = []
+		ind_courses_temp = []
 		e = r'([A-Z]{2,4}).*?([0-9]{3})'
 		for ind_course in ind_courses:
 			for match in re.finditer(e,ind_course):
 				if match.group(1) not in l:
 					l.append(match.group(1))
-	print l
+				ind_courses_temp.append(match.group(1) + "-" + match.group(2))
+	ind_coures = ind_courses_temp
+	print "ind_courses:"
+	print ind_courses_temp
 	for dept in l:
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
 		s.extend(rankedCourses(revinfo,p1,p2,p3))
@@ -93,8 +108,9 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 	for course in taken:
 		courseStr = course[0] + "-" + course[1]
 		if courseStr in courseNameList:
-			s = [(name,scores) for name,scores in s if name != courseStr]
-	#print s
+			s = [(name,scores) for name,scores in s if courseStr not in name]
+	print s
+	s = [(name,scores) for name,scores in s if isIn(name, ind_courses_temp)]
 	return s
 
 
@@ -117,6 +133,7 @@ def getMajorCourses(major, taken, p1, p2, p3):
 				needed_in_level -= opt_course[1]
 	print optional.keys()
 	ranked_opt = [x[0] for x in rankedCoursesMultiple(optional.keys(), p1, p2, p3, taken)]
+	print "ranked_opt:"
 	print ranked_opt
 	opt_courses = []
 	i = 0
@@ -124,8 +141,8 @@ def getMajorCourses(major, taken, p1, p2, p3):
 	level_credits = 0
 	while credits < opt_credits_needed and level_credits < needed_in_level:
 		course = ranked_opt[i]
-		opt_courses.append[course]
-		credits += optional[course[0]]
+		opt_courses.append(course)
+		credits += optional[course[0]][0]
 		if course[-3] == level[0]:
 			level_credits += optional[course[0]]
 		i += 1
