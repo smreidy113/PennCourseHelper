@@ -76,16 +76,22 @@ def getSubset(s,num_needed):
 
 def rankedCoursesMultiple(l,p1,p2,p3, taken):
 	s = []
-	print taken
+	if len(l[0]) > 4:
+		ind_courses = l
+		l = []
+		e = r'([A-Z]{2,4}).*?([0-9]{3})'
+		for ind_course in ind_courses:
+			for match in re.finditer(e,ind_course):
+				if match.group(1) not in l:
+					l.append(match.group(1))
+	print l
 	for dept in l:
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
 		s.extend(rankedCourses(revinfo,p1,p2,p3))
 	s.sort(key=lambda x:x[1][0], reverse=True)
 	courseNameList = [i[0] for i in s]
-	print courseNameList
 	for course in taken:
 		courseStr = course[0] + "-" + course[1]
-		print courseStr
 		if courseStr in courseNameList:
 			s = [(name,scores) for name,scores in s if name != courseStr]
 	#print s
@@ -109,18 +115,20 @@ def getMajorCourses(major, taken, p1, p2, p3):
 			opt_credits_needed -= opt_course[1]
 			if course[0][-3] == level[0]:
 				needed_in_level -= opt_course[1]
+	print optional.keys()
 	ranked_opt = [x[0] for x in rankedCoursesMultiple(optional.keys(), p1, p2, p3, taken)]
+	print ranked_opt
 	opt_courses = []
-	iter = 0
+	i = 0
 	credits = 0
-	level_credits
+	level_credits = 0
 	while credits < opt_credits_needed and level_credits < needed_in_level:
-		course = ranked_opt[iter]
+		course = ranked_opt[i]
 		opt_courses.append[course]
 		credits += optional[course[0]]
 		if course[-3] == level[0]:
 			level_credits += optional[course[0]]
-		iter += 1
+		i += 1
 		if credits > opt_credits_needed:
 			for x in opt_courses:
 				removed = false
@@ -138,13 +146,13 @@ def getMajorCourses(major, taken, p1, p2, p3):
 								break
 		if credits > opt_credits_needed:
 			 if needed_in_level > level_credits:
-				iter2 = iter - 1
-				if opt_courses[iter][-3] != level[0]:
-					worst_curr_class = opt_courses[iter]
+				i2 = i - 1
+				if opt_courses[i][-3] != level[0]:
+					worst_curr_class = opt_courses[i]
 					opt_courses.remove(worst_curr_class)
 					credits -= optional[worst_curr_class][0]
 				else:
-					iter2 -= 1
+					i2 -= 1
 	courses = required.keys() + opt_courses
 	return courses
 
@@ -158,10 +166,10 @@ def printSchedule(l, year):
 		sorted_corses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
 		credits = 0
 		courses = []
-		course_iter = 0
+		course_i = 0
 		need_prereq = []
-		while credits < num_per_semester and course_iter < len(sorted_courses):
-			course = sorted_courses[course_iter]
+		while credits < num_per_semester and course_i < len(sorted_courses):
+			course = sorted_courses[course_i]
 			fulfills_prereq = true
 			for prereq in optionalRequiredUnknown(course, 1):
 				if not taken.contains(prereq):
@@ -181,7 +189,7 @@ def printSchedule(l, year):
 						pass
 			classes.append(course)
 			credits += optionalRequiredUnknown(course, 0)
-			course_iter += 1
+			course_i += 1
 		taken.extend(courses)
 		for course in courses:
 			html += "<br>" + course + "</br>"
