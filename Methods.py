@@ -156,7 +156,36 @@ def printSchedule(l, year):
 		html += "You've graduated. You have no more semesters to take classes."
 	sorted_classes = sorted(l, key=lambda x: int(x[-3:]))
 	num_per_semester = len(l) / (2 * (year - 2014))
+
+	cumulative_courses = []
+
 	for i in range(year*2):
 		html += "<br> Semester" + str(i) + "</br>"
+		iter = 0
+		credits = 0
+		courses = []
+		while credits < num_per_semester and iter < len(l):
+			course = l[iter]
+			courses.append(course)
+			coreqs = []
+			prereqs = []
+			try:
+				prereqs = required[course][1]
+			except:
+				prereqs = optional[course][1]
+			for prereq in prereqs:
+				if not cumulative_courses.contains(prereq)
+			try:
+				coreqs = required[course][2]
+			except:
+				coreqs = optional[course][2]
+			for coreq in coreqs:
+				courses.append(coreq)
+
 		for j in range(num_per_semester):
 			html += "<br>" + sorted_classes[i * num_per_semester + j] + "</br>"
+
+
+
+
+
