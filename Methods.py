@@ -151,39 +151,36 @@ def getMajorCourses(major, taken, p1, p2, p3):
 def printSchedule(l, year):
 	if (year <= 2014):
 		html += "You've graduated. You have no more semesters to take classes."
-	sorted_courses = sorted(l, key=lambda x: int(x[-3:]))
+	sorted_classes = sorted(l, key=lambda x: int(x[-3:]))
 	num_per_semester = len(l) / (2 * (year - 2014))
 	for i in range(year*2):
 		html += "<br> Semester" + str(i) + "</br>"
-
+		
 		credits = 0
-		courses = []
-		course_iter = 0
-		need_prereq = []
-		while credits < num_per_semester and len(sorted_courses) != 0:
-			course = sorted_courses[course_iter]
+		classes = []
+		while credits < num_per_semester and len(sorted_classes) != 0:
+			class = sorted_classes[0]
 			fulfills_prereq = true
-			for prereq in optionalRequiredUnknown(course, 1):
+			for prereq in optionalRequiredUnknown(class, 1):
 				if not taken.contains(prereq):
 					fulfills_prereq = false
 					break
 			if not fulfills_prereq:
-				need_prereq.append[course]
 				continue
 			else:
-				for coreq in optionalRequiredUnknown(course, 2):
+				for coreq in optionalRequiredUnknown(class, 2):
 					classes.append(coreq)
 					credits += optionalRequiredUnknown(coreq, 0)
 					try:
 						sorted_classes.remove(coreq)
 					except:
 						pass
-			classes.append(course)
-			credits += optionalRequiredUnknown(course, 0)
-			course_iter += 1
-		taken.extend(courses)
-		for course in courses:
-			sorted_courses.remove(class)
+			classes.append(class)
+			credits += optionalRequiredUnknown(class, 0)
+			iter += 1
+		taken.extend(classes)
+		for class in classes:
+			sorted_classes.remove(class)
 					
 
 
