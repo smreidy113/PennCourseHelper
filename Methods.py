@@ -126,7 +126,7 @@ def getMajorCourses(major, taken, p1, p2, p3):
 		course = ranked_opt[i]
 		opt_courses.append[course]
 		credits += optional[course[0]]
-		if course[-3] == level[0]:
+		if int(course[-3]) >= int(level[0]):
 			level_credits += optional[course[0]]
 		i += 1
 		if credits > opt_credits_needed:
@@ -147,7 +147,7 @@ def getMajorCourses(major, taken, p1, p2, p3):
 		if credits > opt_credits_needed:
 			 if needed_in_level > level_credits:
 				i2 = i - 1
-				if opt_courses[i][-3] != level[0]:
+				if int(opt_courses[i][-3]) >= int(level[0]):
 					worst_curr_class = opt_courses[i]
 					opt_courses.remove(worst_curr_class)
 					credits -= optional[worst_curr_class][0]
