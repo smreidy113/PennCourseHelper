@@ -175,12 +175,13 @@ def printSchedule(l, year):
 				classes.append(course)
 				credits += optionalRequiredUnknown(course, 0)
 				for coreq in optionalRequiredUnknown(course, 2):
-					classes.append(coreq)
-					credits += optionalRequiredUnknown(coreq, 0)
-					try:
-						sorted_classes.remove(coreq)
-					except:
-						pass
+					if not taken.contains(coreq) and not courses.contains(coreq):
+						classes.append(coreq)
+						credits += optionalRequiredUnknown(coreq, 0)
+						try:
+							sorted_classes.remove(coreq)
+						except:
+							pass
 			course_iter += 1
 		taken.extend(courses)
 		for course in courses:
