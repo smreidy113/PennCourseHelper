@@ -151,11 +151,11 @@ def getMajorCourses(major, taken, p1, p2, p3):
 def printSchedule(l, year):
 	if (year <= 2014):
 		html += "You've graduated. You have no more semesters to take classes."
-	sorted_courses = sorted(l, key=lambda x: int(x[-3:]))
+	sorted_courses = l
 	num_per_semester = len(l) / (2 * (year - 2014))
 	for i in range(year*2):
 		html += "<br> Semester" + str(i) + "</br>"
-
+		sorted_corses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
 		credits = 0
 		courses = []
 		course_iter = 0
@@ -169,6 +169,7 @@ def printSchedule(l, year):
 					break
 			if not fulfills_prereq:
 				need_prereq.append[course]
+				sorted_courses.remove(course)
 				continue
 			else:
 				for coreq in optionalRequiredUnknown(course, 2):
@@ -183,7 +184,7 @@ def printSchedule(l, year):
 			course_iter += 1
 		taken.extend(courses)
 		for course in courses:
-			sorted_courses.remove(class)
+			sorted_courses.remove(course)
 					
 
 
