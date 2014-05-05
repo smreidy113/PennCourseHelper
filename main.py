@@ -49,21 +49,22 @@ def complete_schedule():
 	html = ""
 	html += startCode()
 	html += "\n\t\t<form name=\"myform\" action=\"chooseSchedule\" method=\"POST\">"
-	html += "\n\t\tSelect your major:"
+	html += "\n\t\tSelect your major (required):"
 	html += "\n\t\t\t<select name=\"major\">"
 	for major in Data.majors:
 		html += "\n\t\t\t\t<option value=\"" + major + "\">" + major + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
-	html += "\n\t\t\t1st Priority: <select name=\"priority1\">"
+	html += "\n\t\t\tYear (required; enter 2015 or above): <input type=\"text\" name = \"year\">"
+	html += "\n\t\t\t1st Priority (required): <select name=\"priority1\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t2nd Priority: <select name=\"priority2\">"
+	html += "\n\t\t\t2nd Priority (required): <select name=\"priority2\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t3rd Priority: <select name=\"priority3\">"
+	html += "\n\t\t\t3rd Priority (required): <select name=\"priority3\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
@@ -142,8 +143,25 @@ def listcourses():
 def chooseSchedule():
 	html = startCode()
 	taken = [i[0]+i[1] for i in Methods.courseList(request.form['coursestaken'])]
+	year = int(request.form['year'])
 	print taken
-	print Methods.getMajorCourses(request.form['major'],taken,request.form['priority1'],request.form['priority2'],request.form['priority3'])
+	courses = Methods.getMajorCourses(request.form['major'],taken,request.form['priority1'],request.form['priority2'],request.form['priority3'])
+	schedule = Methods.printSchedule(courses, taken, year)
+	if schedule == "graduated":
+		html += "You've graduated. You have no more semesters to take classes."
+	elif schedule == "Not enough time":
+		html += "Your schedule has too many prequesites to take in " + str((year - 2014) * 2) + " semesters"
+	else:
+		overloaded = False
+		for semester_schedule in schedule:
+			if len(semester_schedule) > 6:
+				overloaded = True
+			html += "<br>" + "Semester" + str(schedule.index(semester_schedule) + 1) + "</br>"
+			for course in semester_schedule:
+				html += "<br>" + course + "</br>"
+		html += "<br>" + "Don't forget to allot time for sector requirements!" + "</br>"
+		if overloaded:
+			html += "<br>" + "Even without sectors, you're overloaded. You may need more years!" + "</br>"
 	html += endCode()
 	return html
 

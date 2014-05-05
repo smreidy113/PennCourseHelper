@@ -165,16 +165,16 @@ def getMajorCourses(major, taken, p1, p2, p3):
 		i += 1
 		if credits > opt_credits_needed:
 			for x in opt_courses:
-				removed = false
+				removed = False
 				for prereq in optional[x][1]:
-					if not taken.contains(prereq) and not required.keys().contains(prereq) and not opt_courses.contains(prereq):
+					if not prereq in taken and not prereq in required.keys() and not prereq in opt_courses:
 						opt_courses.remove(x)
-						removed = true
+						removed = True
 						credits -= optional[x[0]]
 						break
 				if not removed:
 					for coreq in optional[x][1]:
-						if not taken.contains(coreq) and not required.keys().contains(coreq) and not opt_courses.contains(coreq):
+						if not coreq in taken and not coreq in required.keys() and not coreq in opt_courses:
 								opt_courses.remove(x)
 								optional[x[0]]
 								break
@@ -190,57 +190,58 @@ def getMajorCourses(major, taken, p1, p2, p3):
 	courses = required.keys() + opt_courses
 	return courses
 
-def printSchedule(l, year):
+def printSchedule(l, taken, year):
 	if (year <= 2014):
-		html += "You've graduated. You have no more semesters to take classes."
+		return "graduated"
 	sorted_courses = l
 	num_per_semester = float(len(l)) / (2 * (year - 2014))
+	semester_schedules = []
 	for i in range((year-2014)*2):
-		html += "<br> Semester" + str(i) + "</br>"
-		sorted_corses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
+		sorted_courses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
+		print sorted_courses
 		credits = 0
 		courses = []
 		course_i = 0
 		need_prereq = []
 		while credits < num_per_semester and course_i < len(sorted_courses):
 			course = sorted_courses[course_i]
-			fulfills_prereq = true
+			course_credit = optionalRequiredUnknown(course, 0)
+			fulfills_prereq = True
 			for prereq in optionalRequiredUnknown(course, 1):
-				if not taken.contains(prereq):
-					fulfills_prereq = false
+				credits_left = num_per_semester - (credits + course_credit)
+				if not prereq in taken and prereq not in sorted_courses[(i+1):int(i+credits_left + 1)]:
+					fulfills_prereq = False
 					break
 			if not fulfills_prereq:
-				need_prereq.append[course]
+				need_prereq.append(course)
 				sorted_courses.remove(course)
 				continue
 			else:
-				classes.append(course)
-				credits += optionalRequiredUnknown(course, 0)
+				courses.append(course)
+				sorted_courses.remove(course)
+				credits += course_credit
 				for coreq in optionalRequiredUnknown(course, 2):
-					classes.append(coreq)
-					credits += optionalRequiredUnknown(coreq, 0)
-					try:
-						sorted_classes.remove(coreq)
-					except:
-						pass
-			classes.append(course)
-			credits += optionalRequiredUnknown(course, 0)
+					if not coreq in taken and not coreq in courses:
+						courses.append(coreq)
+						credits += optionalRequiredUnknown(coreq, 0)
+						try:
+							sorted_courses.remove(coreq)
+						except:
+							pass
 			course_i += 1
-			if not taken.contains(coreq) and not courses.contains(coreq):
-				classes.append(coreq)
-				credits += optionalRequiredUnknown(coreq, 0)
-				try:
-					sorted_classes.remove(coreq)
-				except:
-					pass
-			course_iter += 1
 		taken.extend(courses)
+		semester_schedules.append(courses)
 		for course in courses:
-			html += "<br>" + course + "</br>"
-			sorted_courses.remove(course)
+			try:
+				sorted_courses.remove(course)
+			except:
+				pass
 		for course in need_prereq:
-			sorted_courses.append(course)
-	html += "<br>" + "Make sure you also fill your sector requirements!" + "</br>"
+			if course not in courses:
+				sorted_courses.append(course)
+	if sorted_courses:
+		return "Not enough time"
+	return semester_schedules
 
 
 def optionalRequiredUnknown(course, field):

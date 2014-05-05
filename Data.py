@@ -1,4 +1,4 @@
-# Boolean refers to whether it's a ositive attribute
+# Boolean refers to whether it's a positive attribute
 attrs = {"Course Quality": (r'CourseQuality', True), 
     "Instructor Quality": (r'InstructorQuality', True), 
     "Difficulty": (r'Difficulty', False), 
@@ -276,7 +276,7 @@ major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []),
     ("CIS110", 1, [], []), ("CIS120", 1, [], []),
     ("ESE111", 1, [], []),
     ("EAS203", 1, [], []),
-    ("ESE204", 1, [], ["MATH114"])
+    ("ESE204", 1, [], ["MATH114"]),
     ("ESE210", 1, ["MATH240"], []),
     ("ESE224", 1, [], []),
     ("ESE303", 1, ["ESE301"], []),
