@@ -5,7 +5,8 @@ attrs = {"Course Quality": (r'CourseQuality', True),
     "Amount Learned": (r'AmountLearned', True), 
     "Work Required": (r'WorkRequired', False)}
 
-majors = ["Bioengineering", "CBE", "Computer Engineering", "Computer Science",
+majors = ["Bioengineering", "Chemical and Biomolecular Engineering", 
+     "Computer Engineering", "Computer Science",
      "Digital Media Design", "Electrical Engineering", 
      "Materials Science and Engineering", "MEAM", 
      "Networked & Social Systems Engineering", 
@@ -247,8 +248,9 @@ major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []),
     ("ESE210", 1, ["MATH240"], []),
     ("ESE303", 1, ["ESE301"], []), ("ESE304", 1, ["MATH240"], []),
     ("NETS112", 1, [], []), ("NETS150", 1, [], []),
-    ("NETS212", 1, ["NETS112"], []), ("NETS312", 1, ["NETS212"], []),
-    ("NETS412", 1, ["NETS312"], []),
+    ("NETS212", 1, ["CIS120", "CIS160"], ["CIS121"]), 
+    ("NETS312", 1, ["ESE301", "EAS205"], []),
+    ("NETS412", 1, [], ["CIS320"]),
     ("CIS400", 1, [], []), ("CIS401", 1, ["CIS400"], []),
     ("ECON101", 1, [], []), 
     ("ECON212", 1, ["ECON101", "MATH104", "MATH114"], [])],
@@ -258,8 +260,36 @@ major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []),
     ("CIS334", 1, ["CIS320"], []), 
     ("CIS368", 1, ["CIS121", "CIS277"], []), ("CIS430", 1, ["CIS121"], []), 
     ("CIS455", 1, [], []), ("CIS520", 1, ["MATH312"], []), 
-    ("CIS551", 1, ["TCOM512"], []), ("CIS553", 1, ["CIS121"], [])]}
+    ("CIS551", 1, ["TCOM512"], []), ("CIS553", 1, ["CIS121"], [])]},
 
-    }
+
+    "Systems Science and Engineering" : {"Required":
+    [("MATH104", 1, [], []), ("MATH114", 1, ["MATH104"], []),
+    ("MATH240", 1, ["MATH104", "MATH114"], []),
+    ("ESE301", 1, ["MATH114"], []),
+    ("ESE302", 1, ["ESE301"], []),
+    ("PHYS150", 1.5, [], ["MATH104"]), 
+    ("PHYS151", 1.5, ["PHYS150"], ["MATH114"]),
+    ("CHEM101", 1, [], ["CHEM053"]), 
+    ("CHEM053", .5, [], ["CHEM101"]),
+    ("MATH312", 1, ["MATH240"], []),
+    ("CIS110", 1, [], []), ("CIS120", 1, [], []),
+    ("ESE111", 1, [], []),
+    ("EAS203", 1, [], []),
+    ("ESE204", 1, [], ["MATH114"])
+    ("ESE210", 1, ["MATH240"], []),
+    ("ESE224", 1, [], []),
+    ("ESE303", 1, ["ESE301"], []),
+    ("ESE590", 1, [], []), ("ESE450", 1, [], []),
+    ("ESE451", 1, ["ESE450"], []),
+    ("EAS545", 1, [], []), ("EAS595", 1, [], [])],
+
+    "Optional" : [(3, 0, "000"),
+    ("ESE308", 1, ["CIS120"], []),
+    ("NETS212", 1, ["CIS120", "CIS160"], ["CIS121"]), 
+    ("NETS312", 1, ["ESE301", "MATH312"], []),
+    ("NETS412", 1, [], ["CIS320"]),
+    ("ESE406", 1, [], []), ("ESE504", 1, ["MATH312"], []),
+    ("CIS240", 1, [], [])]}}
 
 
