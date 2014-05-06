@@ -86,7 +86,7 @@ def choose_course():
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
-	html += "\n\t\t\t1st Priority: <select name=\"priority1\">"
+	html += "\n\t\t\t1st Priority (required): <select name=\"priority1\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
@@ -112,6 +112,9 @@ def listcourses():
 	p1 = request.form['priority1']
 	p2 = request.form['priority2']
 	p3 = request.form['priority3']
+	if p1 == None:
+		html += "Please select a 1st priority"
+		return html
 	courses_taken = Methods.courseList(request.form['coursestaken'])
 	print courses_taken
 	s = Methods.rankedCoursesMultiple(request.form.getlist('dept1'),p1,p2,p3,courses_taken)
