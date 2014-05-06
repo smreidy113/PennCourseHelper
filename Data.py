@@ -1,5 +1,5 @@
 # Boolean refers to whether it's a positive attribute
-attrs = {"Course Quality": (r'CourseQuality', True), 
+attrs = {"None" :(r'None', True), "Course Quality": (r'CourseQuality', True), 
     "Instructor Quality": (r'InstructorQuality', True), 
     "Difficulty": (r'Difficulty', False), 
     "Amount Learned": (r'AmountLearned', True), 

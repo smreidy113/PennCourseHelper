@@ -29,7 +29,6 @@ def courseList(s):
 
 def findInClass(major,code):
 	for course in Data.major_courses[major]["Required"]:
-		print code
 		if code == course[0]:
 			return course
 	for course in Data.major_courses[major]["Optional"]:
@@ -58,7 +57,6 @@ def rankedCourses(revinfo,p1,p2,p3):
 			courseDict[courseName[0:-4]] = [course]
 			ratingsDict[courseName[0:-4]] = 0.0
 			altNamesDict[courseName[0:-4]] = [removeDash(s[0:-4]) for s in course['section']['aliases']]
-	print altNamesDict
 	for course in courseDict.keys():
 		sumRating1, sumRating2, sumRating3 = 0.0, 0.0, 0.0
 		for section in courseDict[course]:
@@ -105,7 +103,6 @@ def getSubset(s,num_needed):
 def isIn(a,b):
 	for i in a:
 		if i in b:
-			print i + "is in the list"
 			return True
 	return False
 
@@ -125,8 +122,6 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 					l.append(match.group(1))
 				ind_courses_temp.append(match.group(1) + match.group(2))
 	ind_coures = ind_courses_temp
-	print "ind_courses:"
-	print ind_courses_temp
 	for dept in l:
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
 		s.extend(rankedCourses(revinfo,p1,p2,p3))
@@ -136,7 +131,6 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 		courseStr = course[0] + "-" + course[1]
 		if courseStr in courseNameList:
 			s = [(name,scores) for name,scores in s if courseStr not in name]
-	print s
 	if depts == False:
 		s = [(name,scores) for name,scores in s if isIn(name, ind_courses_temp)]
 	return s
@@ -159,14 +153,9 @@ def getMajorCourses(major, taken, p1, p2, p3):
 			opt_credits_needed -= opt_course[1]
 			if course[0][-3] == level[0]:
 				needed_in_level -= opt_course[1]
-	print optional.keys()
 	ranked_opt = [x[0] for x in rankedCoursesMultiple(optional.keys(), p1, p2, p3, taken)]
-	print "ranked_opt:"
-	print ranked_opt
 	ranked_opt = eliminateCrossListings(ranked_opt,Data.major_courses[major])
 	opt_courses = []
-	print "ranked_opt(again):"
-	print ranked_opt
 	i = 0
 	credits = 0
 	level_credits = 0
@@ -198,8 +187,6 @@ def getMajorCourses(major, taken, p1, p2, p3):
 			else:
 				i2 -= 1
 	courses = required.keys() + opt_courses
-	print "COURSES YO"
-	print courses
 	return courses
 
 def printSchedule(l, taken, year):
@@ -211,15 +198,12 @@ def printSchedule(l, taken, year):
 	semester_schedules = []
 	for i in range((year-2014)*2):
 		sorted_courses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
-		print sorted_courses
 		credits = 0
 		courses = []
 		course_i = 0
 		need_prereq = []
 		while credits < num_per_semester and course_i < len(sorted_courses):
 			course = sorted_courses[course_i]
-			print "looking at course: "
-			print course
 			course_credit = optionalRequiredUnknown(course, 0)
 			fulfills_prereq = True
 			for prereq in optionalRequiredUnknown(course, 1):
@@ -254,11 +238,6 @@ def printSchedule(l, taken, year):
 		for course in need_prereq:
 			if course not in courses:
 				sorted_courses.append(course)
-	print semester_schedules
-	print "still need to take:"
-	print sorted_courses
-	#if sorted_courses:
-	#	return "ot enough time"
 	if sorted_courses:
 		return "Not enough time"
 	return semester_schedules
