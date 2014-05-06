@@ -78,7 +78,15 @@ def rankedCourses(revinfo,p1,p2,p3):
 		avgRating1 = sumRating1/len(courseDict[course])
 		avgRating2 = sumRating2/len(courseDict[course])
 		avgRating3 = sumRating3/len(courseDict[course])
-		overallRank = (3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2) / 96 * 10
+		overallRank = (3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2)
+		maxScore = 0
+		if sumRating1 > 0.0:
+			maxScore += 48
+		if sumRating2 > 0.0:
+			maxScore += 32
+		if sumRating3 > 0.0:
+			maxScore += 16
+		overallRank = overallRank / maxScore * 10
 		if not Data.attrs[key(p1)][1]:
 			avgRating1 = 4 - avgRating1
 		if not Data.attrs[key(p1)][1]:
