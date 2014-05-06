@@ -60,18 +60,21 @@ def rankedCourses(revinfo,p1,p2,p3):
 	for course in courseDict.keys():
 		sumRating1, sumRating2, sumRating3 = 0.0, 0.0, 0.0
 		for section in courseDict[course]:
-			if (Data.attrs[key(p1)][1]):
-				sumRating1 += float(section['ratings'].get(str('r'+p1),0.0))
-			else:
-				sumRating1 += float(4 - float(section['ratings'].get(str('r'+p1),0.0)))
-			if (Data.attrs[key(p2)][1]):
-				sumRating2 += float(section['ratings'].get(str('r'+p2),0.0))
-			else:
-				sumRating2 += float(4 - float(section['ratings'].get(str('r'+p2),0.0)))
-			if (Data.attrs[key(p3)][1]):
-				sumRating3 += float(section['ratings'].get(str('r'+p3),0.0))
-			else:
-				sumRating3 += float(4 - float(section['ratings'].get(str('r'+p3),0.0)))
+			if (Data.attrs[key(p1)]) != "None":
+				if (Data.attrs[key(p1)][1]):
+					sumRating1 += float(section['ratings'].get(str('r'+p1),0.0))
+				else:
+					sumRating1 += float(4 - float(section['ratings'].get(str('r'+p1),0.0)))
+			if (Data.attrs[key(p2)]) != "None":
+				if (Data.attrs[key(p2)][1]):
+					sumRating2 += float(section['ratings'].get(str('r'+p2),0.0))
+				else:
+					sumRating2 += float(4 - float(section['ratings'].get(str('r'+p2),0.0)))
+			if (Data.attrs[key(p3)]) != "None":
+				if (Data.attrs[key(p3)][1]):
+					sumRating3 += float(section['ratings'].get(str('r'+p3),0.0))
+				else:
+					sumRating3 += float(4 - float(section['ratings'].get(str('r'+p3),0.0)))
 		avgRating1 = sumRating1/len(courseDict[course])
 		avgRating2 = sumRating2/len(courseDict[course])
 		avgRating3 = sumRating3/len(courseDict[course])
