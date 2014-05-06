@@ -235,10 +235,11 @@ def printSchedule(l, taken, year,required,optional):
 			if fulfillis_prereq:
 				course_and_coreqs = [course]
 				for coreq in optionalRequiredUnknown(course, 2):
-					for prereq in optionalRequiredUnknown(coreq, 1):
-						if not prereq in taken:
-							fulfills_prereq = False
-							break
+					if coreq not in taken:
+						for prereq in optionalRequiredUnknown(coreq, 1):
+							if not prereq in taken:
+								fulfills_prereq = False
+								break
 					elif not coreq in taken and not coreq in courses:
 						course_and_coreqs.append(coreq)
 			if fulfills_prereq:
