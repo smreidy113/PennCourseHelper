@@ -139,10 +139,11 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 
 # Dictionaries of required and optional major course. 
 # Filled by getMajorCourses, referenced in printSchedule (via optionalRequiredUnknown)
-required = {}
-optional = {}
 
-def getMajorCourses(major, taken, p1, p2, p3):
+
+def getMajorCourses(major, taken, p1, p2, p3, year):
+	required = {}
+	optional = {}
 	# Find certain requirements for major
 	opt_credits_needed = Data.major_courses[major]["Optional"][0][0]
 	level = Data.major_courses[major]["Optional"][0][2]
@@ -200,9 +201,9 @@ def getMajorCourses(major, taken, p1, p2, p3):
 			else:
 				i2 -= 1
 	courses = required.keys() + opt_courses
-	return courses
+	return printSchedule(courses,taken,year,required,optional)
 
-def printSchedule(l, taken, year):
+def printSchedule(l, taken, year,required,optional):
 	if (year <= 2014):
 		return "graduated"
 	sorted_courses = l
@@ -218,14 +219,17 @@ def printSchedule(l, taken, year):
 		courses = []
 		course_i = 0
 		need_prereq = []
+		print "semester " + str(i) + ": " + str(len(sorted_courses))
 		# Fill each semester. Ensure an upper bound on courses taken per semester
-		while credits < num_per_semester and course_i < len(sorted_courses):
-			course = sorted_courses[course_i]
+		while credits < num_per_semester and len(sorted_courses) > 0:
+			print credits, num_per_semester
+			print course_i, len(sorted_courses)
+			course = sorted_courses[0]
 			print "semester " + str(i) + ": looking at " + course
-			course_credit = optionalRequiredUnknown(course, 0)
+			course_credit = optionalRequiredUnknown(course, 0,required,optional)
 			fulfills_prereq = True
 			# Only add if prereqs are met, else hold until next semester
-			for prereq in optionalRequiredUnknown(course, 1):
+			for prereq in optionalRequiredUnknown(course, 1,required,optional):
 				credits_left = num_per_semester - (credits + course_credit)
 				if not prereq in taken:
 					print prereq + " not in taken courses (" + course + ")"
@@ -240,15 +244,15 @@ def printSchedule(l, taken, year):
 				sorted_courses.remove(course)
 				credits += course_credit
 				# Add corequisites
-				for coreq in optionalRequiredUnknown(course, 2):
+				for coreq in optionalRequiredUnknown(course, 2,required,optional):
 					if not coreq in taken and not coreq in courses:
 						courses.append(coreq)
-						credits += optionalRequiredUnknown(coreq, 0)
+						credits += optionalRequiredUnknown(coreq, 0,required,optional)
 						try:
 							sorted_courses.remove(coreq)
 						except:
 							pass
-			course_i += 1
+			#course_i += 1
 		taken.extend(courses)
 		semester_schedules.append(courses)
 		for course in need_prereq:
@@ -258,7 +262,7 @@ def printSchedule(l, taken, year):
 	return semester_schedules
 
 # Called on a course when it is unknown whether the course lies in the optional or required dictionary
-def optionalRequiredUnknown(course, field):
+def optionalRequiredUnknown(course, field,required,optional):
 	try: 
 		x = required[course][field]
 	except:

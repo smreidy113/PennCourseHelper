@@ -156,8 +156,8 @@ def chooseSchedule():
 	taken = [i[0]+i[1] for i in Methods.courseList(request.form['coursestaken'])]
 	year = int(request.form['year'])
 	print taken
-	courses = Methods.getMajorCourses(request.form['major'],taken,request.form['priority1'],request.form['priority2'],request.form['priority3'])
-	schedule = Methods.printSchedule(courses, taken, year)
+	schedule = Methods.getMajorCourses(request.form['major'],taken,request.form['priority1'],request.form['priority2'],request.form['priority3'],year)
+	#schedule = Methods.printSchedule(courses, taken, year)
 	print schedule
 	if schedule == "graduated":
 		html = "You've graduated. You have no more semesters to take classes."
