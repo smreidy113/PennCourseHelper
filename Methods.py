@@ -229,9 +229,9 @@ def printSchedule(l, taken, year):
 		while credits < num_per_semester and course_i < len(sorted_courses):
 			course = sorted_courses[course_i]
 			course_credit = optionalRequiredUnknown(course, 0)
+			credits_left = num_per_semester - (credits + course_credit)
 			fulfills_prereq = True
 			for prereq in optionalRequiredUnknown(course, 1):
-				credits_left = num_per_semester - (credits + course_credit)
 				if not prereq in taken:
 					fulfills_prereq = False
 					break
