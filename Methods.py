@@ -183,8 +183,9 @@ def getMajorCourses(major, taken, p1, p2, p3):
 		if credits > opt_credits_needed:
 			for x in opt_courses:
 				removed = False
+				this_credit = optional[x][0]
 				for prereq in optional[x][1]:
-					if not prereq in taken and not prereq in required.keys() and not prereq in opt_courses:
+					if not prereq in taken and not prereq in required.keys() and not prereq in ranked_opt[i-1:(i-1+opt_credits_needed-credits-this_credit)]:
 						opt_courses.remove(x)
 						removed = True
 						credits -= optional[x[0]]

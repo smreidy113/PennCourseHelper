@@ -163,7 +163,7 @@ def chooseSchedule():
 			html += "<br>" + "Semester" + str(schedule.index(semester_schedule) + 1) + "</br>"
 			for course in semester_schedule:
 				html += "<br>" + str(course) + "</br>"
-		html += "<br>" + "Don't forget to allot time for sector requirements!" + "</br>"
+		html += "<br>" + "Don't forget to allot time for sector requirements: Our decide on a course module can help!" + "</br>"
 		if overloaded:
 			html += "<br>" + "Even without sectors, you're overloaded. You may need more years!" + "</br>"
 	html += endCode()
