@@ -259,6 +259,8 @@ def printSchedule(l, taken, year):
 	print sorted_courses
 	#if sorted_courses:
 	#	return "ot enough time"
+	if sorted_courses:
+		return "Not enough time"
 	return semester_schedules
 
 
