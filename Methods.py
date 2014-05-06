@@ -227,24 +227,24 @@ def printSchedule(l, taken, year,required,optional):
 			print "semester " + str(i) + ": looking at " + course
 			fulfills_prereq = True
 			# Only add if prereqs are met, else hold until next semester
-			for prereq in optionalRequiredUnknown(course, 1):
+			for prereq in optionalRequiredUnknown(course, 1, required, optional):
 				if not prereq in taken:
 					print prereq + " not in taken courses (" + course + ")"
 					print taken
 					fulfills_prereq = False
-			if fulfillis_prereq:
+			if fulfills_prereq:
 				course_and_coreqs = [course]
-				for coreq in optionalRequiredUnknown(course, 2):
-					for prereq in optionalRequiredUnknown(coreq, 1):
+				for coreq in optionalRequiredUnknown(course, 2, required, optional):
+					for prereq in optionalRequiredUnknown(coreq, 1, required, optional):
 						if not prereq in taken:
 							fulfills_prereq = False
 							break
-					elif not coreq in taken and not coreq in courses:
-						course_and_coreqs.append(coreq)
+						elif not coreq in taken and not coreq in courses:
+							course_and_coreqs.append(coreq)
 			if fulfills_prereq:
 				for c in course_and_coreqs:
 					courses.append(c)
-					credits += optionalRequiredUnknown(course, 0)
+					credits += optionalRequiredUnknown(course, 0, required, optional)
 					try:
 						sorted_courses.remove(c)
 					except:
