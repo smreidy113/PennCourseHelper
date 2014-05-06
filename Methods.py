@@ -79,11 +79,11 @@ def rankedCourses(revinfo,p1,p2,p3):
 		avgRating2 = sumRating2/len(courseDict[course])
 		avgRating3 = sumRating3/len(courseDict[course])
 		overallRank = (3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2) / 96 * 10
-		if Data.attrs[key(p1)][1]:
+		if not Data.attrs[key(p1)][1]:
 			avgRating1 = 4 - avgRating1
-		if Data.attrs[key(p1)][1]:
+		if not Data.attrs[key(p1)][1]:
 			avgRating2 = 4 - avgRating2
-		if Data.attrs[key(p1)][1]:
+		if not Data.attrs[key(p1)][1]:
 			avgRating3 = 4 - avgRating3
 		ratingsDict[course] = (overallRank,avgRating1,avgRating2,avgRating3)
 	#print ratingsDict.items()
