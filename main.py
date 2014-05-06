@@ -125,8 +125,10 @@ def listcourses():
 	html += "\n\t\t\t\t<td>Course Name</td>"
 	html += "\n\t\t\t\t<td>Overall Score</td>"
 	html += "\n\t\t\t\t<td>" + Methods.key(p1) + "</td>"
-	html += "\n\t\t\t\t<td>" + Methods.key(p2) + "</td>"
-	html += "\n\t\t\t\t<td>" + Methods.key(p3) + "</td>"
+	if p2 != None:
+		html += "\n\t\t\t\t<td>" + Methods.key(p2) + "</td>"
+	if p3 != None:
+		html += "\n\t\t\t\t<td>" + Methods.key(p3) + "</td>"
 	html += "\n\t\t\t</tr>"
 	for course in top_courses:
 		html += "\n\t\t\t<tr>"
@@ -136,8 +138,10 @@ def listcourses():
 		html += course[0][len(course[0])-1] + "</td>"
 		html += "\n\t\t\t\t<td>" + str(course[1][0]) + "</td>"
 		html += "\n\t\t\t\t<td>" + str(course[1][1]) + "</td>"
-		html += "\n\t\t\t\t<td>" + str(course[1][2]) + "</td>"
-		html += "\n\t\t\t\t<td>" + str(course[1][3]) + "</td>"
+		if p2 != None:
+			html += "\n\t\t\t\t<td>" + str(course[1][2]) + "</td>"
+		if p3 != None:
+			html += "\n\t\t\t\t<td>" + str(course[1][3]) + "</td>"
 		html += "\n\t\t\t</tr>"
 		#html += "<br>" + course[0] + " " + str(course[1])
 	html += "\n\t\t</table>"
