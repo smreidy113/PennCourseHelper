@@ -170,38 +170,33 @@ def getMajorCourses(major, taken, p1, p2, p3):
 	i = 0
 	credits = 0
 	level_credits = 0
-	while credits < opt_credits_needed and level_credits < needed_in_level:
+	while credits < opt_credits_needed or level_credits < needed_in_level:
 		course = ranked_opt[i]
-		opt_courses.append(course)
-		credits += optional[course][0]
-		if int(course[-3]) >= int(level[0]):
-			level_credits += optional[course][0]
+		add_course = True
+		this_credit = optional[x][0]
+		for prereq in optional[x][1]:
+			if not prereq in taken and not prereq in required.keys() and not prereq in ranked_opt[i:int(i+opt_credits_needed-credits-this_credit)]:
+				add_course = False
+				break
+		if add_course:
+			for coreq in optional[x][1]:
+				if not coreq in taken and not coreq in required.keys() and not coreq in ranked_opt[i:int(i+opt_credits_needed-credits-this_credit)]:
+					add_course = False
+					break
+		if add_course:
+			opt_courses.append(course)
+			credits += this_credit
+			if int(course[-3]) >= int(level[0]):
+				level_credits += this_credit
 		i += 1
-		if credits > opt_credits_needed:
-			for x in opt_courses:
-				removed = False
-				this_credit = optional[x][0]
-				for prereq in optional[x][1]:
-					if not prereq in taken and not prereq in required.keys() and not prereq in ranked_opt[i-1:(i-1+opt_credits_needed-credits-this_credit)]:
-						opt_courses.remove(x)
-						removed = True
-						credits -= optional[x[0]]
-						break
-				if not removed:
-					for coreq in optional[x][1]:
-						if not coreq in taken and not coreq in required.keys() and not coreq in opt_courses:
-							opt_courses.remove(x)
-							optional[x[0]]
-							break
-		if credits > opt_credits_needed:
-			 if needed_in_level > level_credits:
-				i2 = i - 1
-				if int(opt_courses[i][-3]) >= int(level[0]):
-					worst_curr_class = opt_courses[i]
-					opt_courses.remove(worst_curr_class)
-					credits -= optional[worst_curr_class][0]
-				else:
-					i2 -= 1
+	 	if credits >= opt_credits_needed and needed_in_level > level_credits:
+			i2 = i - 1
+			if int(opt_courses[i][-3]) < int(level[0]):
+				worst_curr_class = opt_courses[i]
+				opt_courses.remove(worst_curr_class)
+				credits -= optional[worst_curr_class][0]
+			else:
+				i2 -= 1
 	courses = required.keys() + opt_courses
 	print "COURSES YO"
 	print courses
