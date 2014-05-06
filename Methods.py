@@ -222,16 +222,9 @@ def printSchedule(l, taken, year,required,optional):
 		need_prereq = []
 		print "semester " + str(i) + ": " + str(len(sorted_courses))
 		# Fill each semester. Ensure an upper bound on courses taken per semester
-		while credits < num_per_semester and len(sorted_courses) > 0:
-			print credits, num_per_semester
-			print course_i, len(sorted_courses)
-			course = sorted_courses[0]
+		while credits < num_per_semester and course_i < len(sorted_courses):
+			course = sorted_courses[course_i]
 			print "semester " + str(i) + ": looking at " + course
-			course_credit = optionalRequiredUnknown(course, 0,required,optional)
-			fulfills_prereq = True
-			# Only add if prereqs are met, else hold until next semester
-			for prereq in optionalRequiredUnknown(course, 1,required,optional):
-				credits_left = num_per_semester - (credits + course_credit)
 			fulfills_prereq = True
 			# Only add if prereqs are met, else hold until next semester
 			for prereq in optionalRequiredUnknown(course, 1):
@@ -239,19 +232,6 @@ def printSchedule(l, taken, year,required,optional):
 					print prereq + " not in taken courses (" + course + ")"
 					print taken
 					fulfills_prereq = False
-			if not fulfills_prereq:
-				need_prereq.append(course)
-				sorted_courses.remove(course)
-				continue
-			else:
-				courses.append(course)
-				sorted_courses.remove(course)
-				credits += course_credit
-				# Add corequisites
-				for coreq in optionalRequiredUnknown(course, 2,required,optional):
-					if not coreq in taken and not coreq in courses:
-						courses.append(coreq)
-						credits += optionalRequiredUnknown(coreq, 0,required,optional)
 			if fulfillis_prereq:
 				course_and_coreqs = [course]
 				for coreq in optionalRequiredUnknown(course, 2):
@@ -261,7 +241,6 @@ def printSchedule(l, taken, year,required,optional):
 							break
 					elif not coreq in taken and not coreq in courses:
 						course_and_coreqs.append(coreq)
-<<<<<<< HEAD
 			if fulfills_prereq:
 				for c in course_and_coreqs:
 					courses.append(c)
@@ -270,19 +249,7 @@ def printSchedule(l, taken, year,required,optional):
 						sorted_courses.remove(c)
 					except:
 						pass
-			else fulfills_prereq:
-=======
-				if fulfills_prereq:
-					for c in course_and_coreqs:
-						courses.append(c)
-						credits += optionalRequiredUnknown(course, 0)
-						try:
-							sorted_courses.remove(c)
-						except:
-							pass
-			#course_i += 1
-			if not fulfills_prereq:
->>>>>>> FETCH_HEAD
+			else:
 				need_prereq.append(course)
 				sorted_courses.remove(course)
 				continue
