@@ -255,8 +255,8 @@ def printSchedule(l, taken, year):
 			if course not in courses:
 				sorted_courses.append(course)
 	print semester_schedules
-	#if sorted_courses:
-	#	return "ot enough time"
+	if sorted_courses:
+		return "Not enough time"
 	return semester_schedules
 
 

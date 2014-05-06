@@ -144,7 +144,6 @@ def listcourses():
 
 @app.route('/chooseSchedule', methods=['POST'])
 def chooseSchedule():
-	html = "<br>" + "Please wait while we calculate your schedule" + "</br>"
 	taken = [i[0]+i[1] for i in Methods.courseList(request.form['coursestaken'])]
 	year = int(request.form['year'])
 	print taken
