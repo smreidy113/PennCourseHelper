@@ -210,6 +210,7 @@ def printSchedule(l, taken, year):
 	print num_per_semester
 	# A list of lists (each list is courses for a particular semester)
 	semester_schedules = []
+	# Each semester
 	for i in range((year-2014)*2):
 		# Sort by course number. In general, students take lower numbered courses first
 		sorted_courses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
@@ -230,6 +231,7 @@ def printSchedule(l, taken, year):
 			if not fulfills_prereq:
 				need_prereq.append(course)
 				sorted_courses.remove(course)
+				continue
 			else:
 				courses.append(course)
 				sorted_courses.remove(course)
