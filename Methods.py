@@ -222,7 +222,7 @@ def printSchedule(l, taken, year):
 			course = sorted_courses[course_i]
 			course_credit = optionalRequiredUnknown(course, 0)
 			fulfills_prereq = True
-			# Only add if the 
+			# Only add if prereqs are met, else hold until next semester
 			for prereq in optionalRequiredUnknown(course, 1):
 				credits_left = num_per_semester - (credits + course_credit)
 				if not prereq in taken:
@@ -235,6 +235,7 @@ def printSchedule(l, taken, year):
 				courses.append(course)
 				sorted_courses.remove(course)
 				credits += course_credit
+				# Add corequisites
 				for coreq in optionalRequiredUnknown(course, 2):
 					if not coreq in taken and not coreq in courses:
 						courses.append(coreq)
@@ -246,14 +247,8 @@ def printSchedule(l, taken, year):
 			course_i += 1
 		taken.extend(courses)
 		semester_schedules.append(courses)
-		for course in courses:
-			try:
-				sorted_courses.remove(course)
-			except:
-				pass
 		for course in need_prereq:
-			if course not in courses:
-				sorted_courses.append(course)
+			sorted_courses.append(course)
 	if sorted_courses:
 		return "Not enough time"
 	return semester_schedules
