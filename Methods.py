@@ -137,11 +137,6 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 		s = [(name,scores) for name,scores in s if isIn(name, ind_courses_temp)]
 	return s
 
-# Dictionaries of required and optional major course.
-# Maps course IDs to tuple (credits, prereqs, coreqs)
-# Filled by getMajorCourses, referenced in printSchedule (via optionalRequiredUnknown)
-
-
 def getMajorCourses(major, taken, p1, p2, p3, year):
 	required = {}
 	optional = {}
