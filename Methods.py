@@ -78,15 +78,7 @@ def rankedCourses(revinfo,p1,p2,p3):
 		avgRating1 = sumRating1/len(courseDict[course])
 		avgRating2 = sumRating2/len(courseDict[course])
 		avgRating3 = sumRating3/len(courseDict[course])
-		overallRank = (3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2)
-		maxScore = 0
-		if sumRating1 > 0.0:
-			maxScore += 48
-		if sumRating2 > 0.0:
-			maxScore += 32
-		if sumRating3 > 0.0:
-			maxScore += 16
-		overallRank = overallRank / maxScore * 10
+		overallRank = (3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2) / 96 * 10
 		if not Data.attrs[key(p1)][1]:
 			avgRating1 = 4 - avgRating1
 		if not Data.attrs[key(p1)][1]:
@@ -229,9 +221,9 @@ def printSchedule(l, taken, year):
 		while credits < num_per_semester and course_i < len(sorted_courses):
 			course = sorted_courses[course_i]
 			course_credit = optionalRequiredUnknown(course, 0)
-			credits_left = num_per_semester - (credits + course_credit)
 			fulfills_prereq = True
 			for prereq in optionalRequiredUnknown(course, 1):
+				credits_left = num_per_semester - (credits + course_credit)
 				if not prereq in taken:
 					fulfills_prereq = False
 					break
@@ -244,7 +236,7 @@ def printSchedule(l, taken, year):
 				sorted_courses.remove(course)
 				credits += course_credit
 				for coreq in optionalRequiredUnknown(course, 2):
-					if not coreq in taken and not coreq in courses and not coreq in sorted_courses[(i+1):int(i+credits_left + 1)]:
+					if not coreq in taken and not coreq in courses:
 						courses.append(coreq)
 						credits += optionalRequiredUnknown(coreq, 0)
 						try:
@@ -262,9 +254,7 @@ def printSchedule(l, taken, year):
 		for course in need_prereq:
 			if course not in courses:
 				sorted_courses.append(course)
-	if len(sorted_courses) > 0:
-		print sorted_courses
-		print semester_schedules
+	if sorted_courses:
 		return "Not enough time"
 	return semester_schedules
 
