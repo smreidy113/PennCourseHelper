@@ -104,7 +104,7 @@ def choose_course():
 	html += endCode()
 	return html
 
-# When the user submits a request to choose a course, a list of up to 5 recommendations are returned,
+# When the user submits a request to choose a course, a list of up to 10 recommendations are returned,
 # in a table, along with the overall (normalized) score, and the scores for attributes the user chose.
 # This call make take several seconds to complete.
 @app.route('/listcourses', methods=['POST'])
@@ -120,7 +120,7 @@ def listcourses():
 	courses_taken = Methods.courseList(request.form['coursestaken'])
 	print courses_taken
 	s = Methods.rankedCoursesMultiple(request.form.getlist('dept1'),p1,p2,p3,courses_taken)
-	top_courses = Methods.getSubset(s, 5)
+	top_courses = Methods.getSubset(s, 10)
 	html += "<br>" + "Here are your top " + str(len(top_courses)) + " recommendations"
 	html += "\n\t\t<table>"
 	html += "\n\t\t\t<tr>"
@@ -165,14 +165,24 @@ def chooseSchedule():
 		html = "Your schedule has too many prequesites to take in " + str((year - 2014) * 2) + " semesters"
 	else:
 		html = startCode()
+		html += "\n\t\t<table>"
 		overloaded = False
 		# Print courses for each semester
 		for semester_schedule in schedule:
 			if len(semester_schedule) > 6:
 				overloaded = True
-			html += "<br>" + "Semester" + str(schedule.index(semester_schedule) + 1) + "</br>"
+			html += "\n\t\t\t<tr>"
+			html += "\n\t\t\t\t<td>"
+			html += "Semester " + str(schedule.index(semester_schedule) + 1)
+			html += "\n\t\t\t\t</td>"
+			html += "\n\t\t\t</tr>"
 			for course in semester_schedule:
-				html += "<br>" + str(course) + "</br>"
+				html += "\n\t\t\t<tr>"
+				html += "\n\t\t\t\t<td>"
+				html += str(course)
+				html += "\n\t\t\t\t</td>"
+				html += "\n\t\t\t</tr>"
+		html += "\n\t\t</table>"
 		html += "<br>" + "Don't forget to allot time for sector requirements: Our decide on a course module can help!" + "</br>"
 		if overloaded:
 			html += "<br>" + "Even without sectors, you're overloaded. You may need more years!" + "</br>"

@@ -249,7 +249,9 @@ def printSchedule(l, taken, year):
 		for course in need_prereq:
 			if course not in courses:
 				sorted_courses.append(course)
-	if sorted_courses:
+	if len(sorted_courses) > 0:
+		print sorted_courses
+		print semester_schedules
 		return "Not enough time"
 	return semester_schedules
 
