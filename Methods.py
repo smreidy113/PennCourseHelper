@@ -4,11 +4,20 @@ import requests
 from requests.adapters import HTTPAdapter
 import random
 import Data
+import math
 
 api_key = 'q2cm13OPDbZAzvJHGxWgtqcI1ZFp6K'
 params = {'count': str(100)}
 s = requests.Session()
 s.mount('http://', HTTPAdapter(max_retries=5))
+
+def eliminateCrossListings(l,d):
+	ans = []
+	for i in l:
+		for j in i:
+			if j in [x[0] for x in d['Required']] or j in [x[0] for x in d['Optional']]:
+				ans.append(j)
+	return ans
 
 def courseList(s):
 	s = s + ","
@@ -96,12 +105,16 @@ def getSubset(s,num_needed):
 def isIn(a,b):
 	for i in a:
 		if i in b:
+			print i + "is in the list"
 			return True
 	return False
 
 def rankedCoursesMultiple(l,p1,p2,p3, taken):
 	s = []
+	ind_courses_temp = []
+	depts = True
 	if len(l[0]) > 4:
+		depts = False
 		ind_courses = l
 		l = []
 		ind_courses_temp = []
@@ -124,7 +137,8 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 		if courseStr in courseNameList:
 			s = [(name,scores) for name,scores in s if courseStr not in name]
 	print s
-	s = [(name,scores) for name,scores in s if isIn(name, ind_courses_temp)]
+	if depts == False:
+		s = [(name,scores) for name,scores in s if isIn(name, ind_courses_temp)]
 	return s
 
 
@@ -149,12 +163,15 @@ def getMajorCourses(major, taken, p1, p2, p3):
 	ranked_opt = [x[0] for x in rankedCoursesMultiple(optional.keys(), p1, p2, p3, taken)]
 	print "ranked_opt:"
 	print ranked_opt
+	ranked_opt = eliminateCrossListings(ranked_opt,Data.major_courses[major])
 	opt_courses = []
+	print "ranked_opt(again):"
+	print ranked_opt
 	i = 0
 	credits = 0
 	level_credits = 0
 	while credits < opt_credits_needed and level_credits < needed_in_level:
-		course = ranked_opt[i][0]
+		course = ranked_opt[i]
 		opt_courses.append(course)
 		credits += optional[course][0]
 		if course[-3] == level[0]:
@@ -175,9 +192,9 @@ def getMajorCourses(major, taken, p1, p2, p3):
 				if not removed:
 					for coreq in optional[x][1]:
 						if not coreq in taken and not coreq in required.keys() and not coreq in opt_courses:
-								opt_courses.remove(x)
-								optional[x[0]]
-								break
+							opt_courses.remove(x)
+							optional[x[0]]
+							break
 		if credits > opt_credits_needed:
 			 if needed_in_level > level_credits:
 				i2 = i - 1
@@ -188,13 +205,16 @@ def getMajorCourses(major, taken, p1, p2, p3):
 				else:
 					i2 -= 1
 	courses = required.keys() + opt_courses
+	print "COURSES YO"
+	print courses
 	return courses
 
 def printSchedule(l, taken, year):
 	if (year <= 2014):
 		return "graduated"
 	sorted_courses = l
-	num_per_semester = float(len(l)) / (2 * (year - 2014))
+	num_per_semester = math.ceil(float(len(l)) / (2 * (year - 2014)))
+	print num_per_semester
 	semester_schedules = []
 	for i in range((year-2014)*2):
 		sorted_courses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
@@ -205,6 +225,8 @@ def printSchedule(l, taken, year):
 		need_prereq = []
 		while credits < num_per_semester and course_i < len(sorted_courses):
 			course = sorted_courses[course_i]
+			print "looking at course: "
+			print course
 			course_credit = optionalRequiredUnknown(course, 0)
 			fulfills_prereq = True
 			for prereq in optionalRequiredUnknown(course, 1):
@@ -239,8 +261,9 @@ def printSchedule(l, taken, year):
 		for course in need_prereq:
 			if course not in courses:
 				sorted_courses.append(course)
-	if sorted_courses:
-		return "Not enough time"
+	print semester_schedules
+	#if sorted_courses:
+	#	return "ot enough time"
 	return semester_schedules
 
 

@@ -126,7 +126,10 @@ def listcourses():
 	html += "\n\t\t\t</tr>"
 	for course in top_courses:
 		html += "\n\t\t\t<tr>"
-		html += "\n\t\t\t\t<td>" + str(course[0]) + "</td>"
+		html += "\n\t\t\t\t<td>"
+		for i in range(0,len(course[0])-1):
+			html += course[0][i] + ", "
+		html += course[0][len(course[0])-1] + "</td>"
 		html += "\n\t\t\t\t<td>" + str(course[1][0]) + "</td>"
 		html += "\n\t\t\t\t<td>" + str(course[1][1]) + "</td>"
 		html += "\n\t\t\t\t<td>" + str(course[1][2]) + "</td>"
@@ -147,6 +150,7 @@ def chooseSchedule():
 	print taken
 	courses = Methods.getMajorCourses(request.form['major'],taken,request.form['priority1'],request.form['priority2'],request.form['priority3'])
 	schedule = Methods.printSchedule(courses, taken, year)
+	print schedule
 	if schedule == "graduated":
 		html += "You've graduated. You have no more semesters to take classes."
 	elif schedule == "Not enough time":
@@ -158,7 +162,7 @@ def chooseSchedule():
 				overloaded = True
 			html += "<br>" + "Semester" + str(schedule.index(semester_schedule) + 1) + "</br>"
 			for course in semester_schedule:
-				html += "<br>" + course + "</br>"
+				html += "<br>" + str(course) + "</br>"
 		html += "<br>" + "Don't forget to allot time for sector requirements!" + "</br>"
 		if overloaded:
 			html += "<br>" + "Even without sectors, you're overloaded. You may need more years!" + "</br>"
