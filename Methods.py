@@ -230,7 +230,6 @@ def printSchedule(l, taken, year):
 			if not fulfills_prereq:
 				need_prereq.append(course)
 				sorted_courses.remove(course)
-				continue
 			else:
 				courses.append(course)
 				sorted_courses.remove(course)
