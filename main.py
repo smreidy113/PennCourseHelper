@@ -24,6 +24,7 @@ def startCode():
 	ans = "<html>"
 	ans += "\n\t<head>"
 	ans += "\n\t\t<title>Penn Course Helper</title>"
+	ans += "\n\t\t<link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\">"
 	ans += "\n\t</head>"
 	ans += "\n\t<body>"
 	return ans

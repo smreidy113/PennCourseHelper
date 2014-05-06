@@ -209,7 +209,7 @@ major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []),
     ("MATH241", 1, ["MATH240"], []),
     ("MEAM302", 1, ["MATH241", "MEAM211"], []), 
     ("MEAM321", 1, ["MATH241", "MEAM211"], []), 
-    ("MEAM347", 1, [], []), ("MEAM333", 1, ["MEAM203", "MEAN302"], []), 
+    ("MEAM347", 1, [], []), ("MEAM333", 1, ["MEAM203", "MEAM302"], []), 
     ("MEAM354", 1, ["MEAM210"], []), ("MEAM348", 1, [], []), 
     ("MEAM445", 1, [], []), ("MEAM446", 1, [], [])],
 

@@ -173,13 +173,13 @@ def getMajorCourses(major, taken, p1, p2, p3):
 	while credits < opt_credits_needed or level_credits < needed_in_level:
 		course = ranked_opt[i]
 		add_course = True
-		this_credit = optional[x][0]
-		for prereq in optional[x][1]:
+		this_credit = optional[course][0]
+		for prereq in optional[course][1]:
 			if not prereq in taken and not prereq in required.keys() and not prereq in ranked_opt[i:int(i+opt_credits_needed-credits-this_credit)]:
 				add_course = False
 				break
 		if add_course:
-			for coreq in optional[x][1]:
+			for coreq in optional[course][1]:
 				if not coreq in taken and not coreq in required.keys() and not coreq in ranked_opt[i:int(i+opt_credits_needed-credits-this_credit)]:
 					add_course = False
 					break
@@ -255,6 +255,8 @@ def printSchedule(l, taken, year):
 			if course not in courses:
 				sorted_courses.append(course)
 	print semester_schedules
+	print "still need to take:"
+	print sorted_courses
 	#if sorted_courses:
 	#	return "ot enough time"
 	return semester_schedules
