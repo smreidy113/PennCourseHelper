@@ -17,8 +17,6 @@ app = Flask(__name__)
 
 req = requests.get('http://api.penncoursereview.com/v1/depts?token=' + api_key)
 
-
-
 def startCode():
 	ans = ""
 	ans = "<html>"
@@ -45,6 +43,7 @@ def start():
 	html += endCode()
 	return html
 
+# Interface display for the building your schedule app
 @app.route('/complete_schedule')
 def complete_schedule():
 	html = ""
@@ -74,6 +73,7 @@ def complete_schedule():
 	html += endCode()
 	return html
 
+# Interface display for the choose a course app
 @app.route('/choose_course')
 def choose_course():
 	js = req.json()['result']
@@ -104,11 +104,13 @@ def choose_course():
 	html += endCode()
 	return html
 
+# When the user submits a request to choose a course, a list of up to 5 recommendations are returned,
+# in a table, along with the overall (normalized) score, and the scores for attributes the user chose.
+# This call make take several seconds to complete.
 @app.route('/listcourses', methods=['POST'])
 def listcourses():
 	html = ""
 	html += startCode()
-	#print request.form.getlist('dept1')
 	p1 = request.form['priority1']
 	p2 = request.form['priority2']
 	p3 = request.form['priority3']
@@ -143,13 +145,12 @@ def listcourses():
 		if p3 != "None":
 			html += "\n\t\t\t\t<td>" + str(course[1][3]) + "</td>"
 		html += "\n\t\t\t</tr>"
-		#html += "<br>" + course[0] + " " + str(course[1])
 	html += "\n\t\t</table>"
-	#for course in Methods.courseList(request.form['coursestaken']):
-	#	html += course[0]
 	html += endCode()
 	return html
 
+# When the user makes a request to complete her schedule, this returns a semester-by-semester
+# list of courses to take. This may take several seconds to return the list.
 @app.route('/chooseSchedule', methods=['POST'])
 def chooseSchedule():
 	taken = [i[0]+i[1] for i in Methods.courseList(request.form['coursestaken'])]
@@ -165,6 +166,7 @@ def chooseSchedule():
 	else:
 		html = startCode()
 		overloaded = False
+		# Print courses for each semester
 		for semester_schedule in schedule:
 			if len(semester_schedule) > 6:
 				overloaded = True
@@ -176,10 +178,6 @@ def chooseSchedule():
 			html += "<br>" + "Even without sectors, you're overloaded. You may need more years!" + "</br>"
 	html += endCode()
 	return html
-
-#req = requests.get('http://api.penncoursereview.com/v1/coursehistories/CIS-110?token=' + api_key)
-
-#print req.text
 
 if __name__ == '__main__':
 	app.run(debug=True)

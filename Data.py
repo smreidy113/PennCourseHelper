@@ -5,6 +5,7 @@ attrs = {"None" :(r'None', True), "Course Quality": (r'CourseQuality', True),
     "Amount Learned": (r'AmountLearned', True), 
     "Work Required": (r'WorkRequired', False)}
 
+# PennCourseHelper supports Engineering majors
 majors = ["Bioengineering", "Chemical and Biomolecular Engineering", 
      "Computer Engineering", "Computer Science",
      "Digital Media Design", "Electrical Engineering", 
