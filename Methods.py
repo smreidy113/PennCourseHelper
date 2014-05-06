@@ -221,12 +221,15 @@ def printSchedule(l, taken, year):
 		# Fill each semester. Ensure an upper bound on courses taken per semester
 		while credits < num_per_semester and course_i < len(sorted_courses):
 			course = sorted_courses[course_i]
+			print "semester " + str(i) + ": looking at " + course
 			course_credit = optionalRequiredUnknown(course, 0)
 			fulfills_prereq = True
 			# Only add if prereqs are met, else hold until next semester
 			for prereq in optionalRequiredUnknown(course, 1):
 				credits_left = num_per_semester - (credits + course_credit)
 				if not prereq in taken:
+					print prereq + " not in taken courses (" + course + ")"
+					print taken
 					fulfills_prereq = False
 			if not fulfills_prereq:
 				need_prereq.append(course)
