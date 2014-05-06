@@ -144,7 +144,7 @@ def listcourses():
 
 @app.route('/chooseSchedule', methods=['POST'])
 def chooseSchedule():
-	html = startCode()
+	html = "<br>" + "Please wait while we calculate your schedule" + "</br>"
 	taken = [i[0]+i[1] for i in Methods.courseList(request.form['coursestaken'])]
 	year = int(request.form['year'])
 	print taken
@@ -152,10 +152,11 @@ def chooseSchedule():
 	schedule = Methods.printSchedule(courses, taken, year)
 	print schedule
 	if schedule == "graduated":
-		html += "You've graduated. You have no more semesters to take classes."
+		html = "You've graduated. You have no more semesters to take classes."
 	elif schedule == "Not enough time":
-		html += "Your schedule has too many prequesites to take in " + str((year - 2014) * 2) + " semesters"
+		html = "Your schedule has too many prequesites to take in " + str((year - 2014) * 2) + " semesters"
 	else:
+		html = startCode()
 		overloaded = False
 		for semester_schedule in schedule:
 			if len(semester_schedule) > 6:
