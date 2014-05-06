@@ -239,15 +239,15 @@ def printSchedule(l, taken, year):
 							break
 					elif not coreq in taken and not coreq in courses:
 						course_and_coreqs.append(coreq)
-				if fulfills_prereq:
-					for c in course_and_coreqs:
-						courses.append(c)
-						credits += optionalRequiredUnknown(course, 0)
-						try:
-							sorted_courses.remove(c)
-						except:
-							pass
-			if not fulfills_prereq:
+			if fulfills_prereq:
+				for c in course_and_coreqs:
+					courses.append(c)
+					credits += optionalRequiredUnknown(course, 0)
+					try:
+						sorted_courses.remove(c)
+					except:
+						pass
+			else fulfills_prereq:
 				need_prereq.append(course)
 				sorted_courses.remove(course)
 				continue
