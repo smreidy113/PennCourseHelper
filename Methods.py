@@ -222,6 +222,7 @@ def printSchedule(l, taken, year):
 			course = sorted_courses[course_i]
 			course_credit = optionalRequiredUnknown(course, 0)
 			fulfills_prereq = True
+			# Only add if the 
 			for prereq in optionalRequiredUnknown(course, 1):
 				credits_left = num_per_semester - (credits + course_credit)
 				if not prereq in taken:
