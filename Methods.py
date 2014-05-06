@@ -226,7 +226,6 @@ def printSchedule(l, taken, year):
 				credits_left = num_per_semester - (credits + course_credit)
 				if not prereq in taken:
 					fulfills_prereq = False
-					break
 			if not fulfills_prereq:
 				need_prereq.append(course)
 				sorted_courses.remove(course)
