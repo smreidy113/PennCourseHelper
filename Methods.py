@@ -114,9 +114,9 @@ def rankedCourses(revinfo,p1,p2,p3):
 		# Reflip qualities for display purposes
 		if not Data.attrs[key(p1)][1]:
 			avgRating1 = 4 - avgRating1
-		if not Data.attrs[key(p1)][1]:
+		if not Data.attrs[key(p2)][1]:
 			avgRating2 = 4 - avgRating2
-		if not Data.attrs[key(p1)][1]:
+		if not Data.attrs[key(p3)][1]:
 			avgRating3 = 4 - avgRating3
 
 		ratingsDict[course] = (overallRank,avgRating1,avgRating2,avgRating3)

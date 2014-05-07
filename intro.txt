@@ -1,5 +1,14 @@
 PennCourseHelper is a tool to help you complete your schedule at Penn.  With support built in for every engineering major, you'll be able to customize your automated schedule according to what matters to you the most - course quality, work required, difficulty, and much more!
 
+<br><br><br>
+Glowing reviews…
 <br><br>
+"I didn't know I had to take MEAM courses for my MEAM major. Thank God for PennCourseHelper." - MEAM student
+<br><br>
+"This could literally change the landscape of learning at Penn. A real game-changer." - Amy Gutmann
+<br><br>
+"I can't even remember how I found courses before PennCourseHelper." - Freshman, Class of 2018
+
+<br><br><br>
 
 Made by Sean Reidy and Steven Jaffe for CIS 192 - Python.
