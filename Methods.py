@@ -169,15 +169,15 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
 		s.extend(rankedCourses(revinfo,p1,p2,p3))
 	s.sort(key=lambda x:x[1][0], reverse=True)
-	courseNameList = [i[0] for i in s]
 	for course in taken:
-		courseStr = course[0] + "-" + course[1]
-		if courseStr in courseNameList:
-			s = [(name,scores) for name,scores in s if courseStr not in name]
+		courseStr = course[0] + course[1]
+		s = [(name,scores) for name,scores in s if courseStr not in name]
 	if depts == False:
 		s = [(name,scores) for name,scores in s if isIn(name, ind_courses_temp)]
 	return s
 
+# Returns a list of courses that should be completed for a major, 
+# given requirements, prefences, and classes already taken
 def getMajorCourses(major, taken, p1, p2, p3, year):
 	required = {}
 	optional = {}
@@ -240,12 +240,14 @@ def getMajorCourses(major, taken, p1, p2, p3, year):
 	courses = required.keys() + opt_courses
 	return printSchedule(courses,taken,year,required,optional)
 
+# In conjunction with relevant function in main, prints out a
+# semester-by-semester schedule for when a student should 
+# complete courses
 def printSchedule(l, taken, year,required,optional):
 	if (year <= 2014):
 		return "graduated"
 	sorted_courses = l
 	num_per_semester = math.ceil(float(len(l)) / (2 * (year - 2014)))
-	print num_per_semester
 	# A list of lists (each list is courses for a particular semester)
 	semester_schedules = []
 	# Each semester
@@ -256,17 +258,13 @@ def printSchedule(l, taken, year,required,optional):
 		courses = []
 		course_i = 0
 		need_prereq = []
-		print "semester " + str(i) + ": " + str(len(sorted_courses))
 		# Fill each semester. Ensure an upper bound on courses taken per semester
 		while credits < num_per_semester and course_i < len(sorted_courses):
 			course = sorted_courses[course_i]
-			print "semester " + str(i) + ": looking at " + course
 			fulfills_prereq = True
 			# Only add if prereqs are met, else hold until next semester
 			for prereq in optionalRequiredUnknown(course, 1, required, optional):
 				if not prereq in taken:
-					print prereq + " not in taken courses (" + course + ")"
-					print taken
 					fulfills_prereq = False
 			if fulfills_prereq:
 				course_and_coreqs = [course]
