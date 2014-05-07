@@ -142,7 +142,7 @@ major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []),
     ("CIS553", 1, ["CIS121"], []), ("CIS534", 1, ["CIS371"], []),
     ("CIS563", 1, [])]},
 
-    "ELectrical Engineering" : {"Required" :
+    "Electrical Engineering" : {"Required" :
     [("MATH104", 1, [], []), ("MATH114", 1, ["MATH104"], []),
     ("MATH240", 1, ["MATH114", "MATH104"], []),
     ("ESE301", 1, ["MATH114"], []),
