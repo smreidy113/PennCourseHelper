@@ -232,7 +232,7 @@ def chooseSchedule():
 		html += "Our decide on a course module can help!" + "</br>"
 		if overloaded:
 			html += "<br>" + "Even without sectors, you're overloaded. You "
-			html += "may need more years!" + "</br>"
+			html += "may need more years" + "</br>"
 	html += endCode()
 	return html
 
