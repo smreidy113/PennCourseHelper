@@ -290,6 +290,7 @@ def printSchedule(l, taken, year,required,optional):
 				continue
 		taken.extend(courses)
 		semester_schedules.append(courses)
+		# Add courses that needed prereqs back in for future iterations
 		for course in need_prereq:
 			sorted_courses.append(course)
 	if sorted_courses:
