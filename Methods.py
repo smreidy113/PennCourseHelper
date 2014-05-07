@@ -45,6 +45,18 @@ def removeDash(s):
 	for match in re.finditer(e,s):
 		return match.group(1) + match.group(2)
 
+def addDash(s):
+	e = r'([A-Za-z]{2,4}).*?([0-9]{3})'
+	for match in re.finditer(e,s):
+		return match.group(1) + "-" + match.group(2)
+
+def link(s):
+	ans = "<a href=\"http://penncoursereview.com/course/"
+	ans += addDash(s)
+	ans += "\" target=\"_blank\">" + s + "</a>"
+	return ans
+
+
 def rankedCourses(revinfo,p1,p2,p3):
 	courseDict = {}
 	ratingsDict = {}

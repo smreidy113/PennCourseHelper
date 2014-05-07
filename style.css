@@ -20,6 +20,10 @@
     margin-right:auto;
 }
 
+a {
+    color:#111111;
+}
+
 #content {
 
     width:950px;
@@ -33,6 +37,25 @@
     margin-right:auto;
     height:auto;
     display:inline-block;
+    font-size:1.5em;
+}
+
+#bottom {
+
+
+    margin-right:auto;
+    margin-left:auto;
+    margin-top:auto;
+    margin-bottom:auto;
+    width:1000px;
+    height:100px;
+    font-size:1.1em;
+    background-color:#002233;
+    color:#ffffff;
+
+    text-align: center;
+    vertical-align: center;
+
 }
 
 div.menubar * {
@@ -181,7 +204,7 @@ div.name li{
     margin-bottom:auto;
     font-size:1.3em;
     text-transform:uppercase;
-    width:50%;
+    width:55%;
     color:white;
     padding-top:13px;
     padding-bottom:13px;
@@ -200,4 +223,8 @@ div.name li a {
 
 div.name li a:hover {
     border-style:none;
+}
+
+td {
+    font-size:1.3em;
 }

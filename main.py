@@ -29,15 +29,22 @@ def startCode():
 	ans += "\n\t\t\t<div id=\"menu\">"
 	ans += "\n\t\t\t\t<div class=\"menubar\">"
 	ans += "\n\t\t\t\t\t<ul>"
-	ans += "\n\t\t\t\t\t\t<li>Penn Course Helper</li>"
+	ans += "\n\t\t\t\t\t\t<div class=\"name\"><a href=\"/\"><li>Penn Course Helper</li></a></div>"
+	ans += "\n\t\t\t\t\t\t<li><a href=\"complete_schedule\">Complete My Schedule</a></li>"
+	ans += "\n\t\t\t\t\t\t<li><a href=\"choose_course\">Choose a Course</a></li>"
 	ans += "\n\t\t\t\t\t</ul>"
 	ans += "\n\t\t\t\t</div>"
 	ans += "\n\t\t\t</div>"
-	ans += "\n\t\t</div>"
+	ans += "\n\t\t\t<div id=\"content\">"
 	return ans
 
 def endCode():
 	ans = ""
+	ans += "\n\t\t\t</div>"
+	ans += "\n\t\t<div id=\"bottom\">"
+	ans += "\n\t\t\t<br>Made in 2014 by Sean Reidy and Steven Jaffe. All rights reserved."
+	ans == "\n\t\t</div>"
+	ans += "\n\t\t</div>"
 	ans += "\n\t</body>"
 	ans += "\n</html>"
 	return ans
@@ -45,10 +52,9 @@ def endCode():
 
 @app.route('/')
 def start():	
-	html = "<br>" + "Welcome to PenngineeringCourseHelper!" + "</br>"
-	html += startCode()
-	html += "\n\t\t<a href=\"complete_schedule\">Complete my schedule</a>"
-	html += "\n\t\t<br><a href=\"choose_course\">Decide on a course</a>"
+	html = startCode()
+	html += "\n\t\t\t"
+	html += open("intro.txt").read()
 	html += endCode()
 	return html
 
@@ -57,27 +63,27 @@ def start():
 def complete_schedule():
 	html = ""
 	html += startCode()
-	html += "\n\t\t<form name=\"myform\" action=\"chooseSchedule\" method=\"POST\">"
+	html += "\n\t\t<br><br><form name=\"myform\" action=\"chooseSchedule\" method=\"POST\">"
 	html += "\n\t\tSelect your major (required):"
 	html += "\n\t\t\t<select name=\"major\">"
 	for major in Data.majors:
 		html += "\n\t\t\t\t<option value=\"" + major + "\">" + major + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
-	html += "\n\t\t\tYear (required; enter 2015 or above): <input type=\"text\" name = \"year\">"
-	html += "\n\t\t\t1st Priority (required): <select name=\"priority1\">"
+	html += "\n\t\t\t<br><br>Courses taken: <input type=\"text\" name = \"coursestaken\">"
+	html += "\n\t\t\t<br><br>Year (required; enter 2015 or above): <input type=\"text\" name = \"year\">"
+	html += "\n\t\t\t<br><br>1st Priority (required): <select name=\"priority1\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t2nd Priority (required): <select name=\"priority2\">"
+	html += "\n\t\t\t<br>2nd Priority (required): <select name=\"priority2\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t3rd Priority (required): <select name=\"priority3\">"
+	html += "\n\t\t\t<br>3rd Priority (required): <select name=\"priority3\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
+	html += "\n\t\t<br><br><input type=\"submit\" value=\"Submit\">"
 	html += "\n\t\t</form>"
 	html += endCode()
 	return html
@@ -87,6 +93,7 @@ def complete_schedule():
 def choose_course():
 	js = req.json()['result']
 	html = startCode()
+	html += "<br><br>"
 	html += "\n\t\tSelect departments you want to choose a course from:"
 	html += "\n\t\t<form name=\"myform\" action=\"listcourses\" method=\"POST\">"
 	html += "\n\t\t\t<select multiple name=\"dept1\">"
@@ -94,21 +101,21 @@ def choose_course():
 		html += "\n\t\t\t\t<option value=\"" + dept['id'] + "\">" + dept['id'] + " - " + dept['name'] + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\tCourses taken: <input type=\"text\" name = \"coursestaken\">"
-	html += "\n\t\t\t1st Priority (required): <select name=\"priority1\">"
+	html += "\n\t\t\t<br><br>Courses taken: <input type=\"text\" name = \"coursestaken\">"
+	html += "\n\t\t\t<br><br>1st Priority (required): <select name=\"priority1\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t2nd Priority: <select name=\"priority2\">"
+	html += "\n\t\t\t<br>2nd Priority: <select name=\"priority2\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t3rd Priority: <select name=\"priority3\">"
+	html += "\n\t\t\t<br>3rd Priority: <select name=\"priority3\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" + prior + "</option>"
 	html += "\n\t\t\t</select>"
 	
-	html += "\n\t\t<input type=\"submit\" value=\"Submit\">"
+	html += "\n\t\t<br><br><input type=\"submit\" value=\"Submit\">"
 	html += "\n\t\t</form>"
 	html += endCode()
 	return html
@@ -130,22 +137,23 @@ def listcourses():
 	print courses_taken
 	s = Methods.rankedCoursesMultiple(request.form.getlist('dept1'),p1,p2,p3,courses_taken)
 	top_courses = Methods.getSubset(s, 10)
-	html += "<br>" + "Here are your top " + str(len(top_courses)) + " recommendations"
-	html += "\n\t\t<table>"
+	html += "Here are your top " + str(len(top_courses)) + " recommendations:"
+	html += "\n\t\t<br><br>"
+	html += "\n\t\t<center><table>"
 	html += "\n\t\t\t<tr>"
-	html += "\n\t\t\t\t<td>Course Name</td>"
-	html += "\n\t\t\t\t<td>Overall Score</td>"
-	html += "\n\t\t\t\t<td>" + Methods.key(p1) + "</td>"
+	html += "\n\t\t\t\t<td width=200><b>Course Name</b></td>"
+	html += "\n\t\t\t\t<td width=200><b>Overall Score</b></td>"
+	html += "\n\t\t\t\t<td width=200><b>" + Methods.key(p1) + "</b></td>"
 	if p2 != "None":
-		html += "\n\t\t\t\t<td>" + Methods.key(p2) + "</td>"
+		html += "\n\t\t\t\t<td width=200><b>" + Methods.key(p2) + "</b></td>"
 	if p3 != "None":
-		html += "\n\t\t\t\t<td>" + Methods.key(p3) + "</td>"
+		html += "\n\t\t\t\t<td width=200><b>" + Methods.key(p3) + "</b></td>"
 	html += "\n\t\t\t</tr>"
 	for course in top_courses:
 		html += "\n\t\t\t<tr>"
 		html += "\n\t\t\t\t<td>"
 		for i in range(0,len(course[0])-1):
-			html += course[0][i] + ", "
+			html += Methods.link(course[0][i]) + ", "
 		html += course[0][len(course[0])-1] + "</td>"
 		html += "\n\t\t\t\t<td>" + str(course[1][0]) + "</td>"
 		html += "\n\t\t\t\t<td>" + str(course[1][1]) + "</td>"
@@ -154,7 +162,7 @@ def listcourses():
 		if p3 != "None":
 			html += "\n\t\t\t\t<td>" + str(course[1][3]) + "</td>"
 		html += "\n\t\t\t</tr>"
-	html += "\n\t\t</table>"
+	html += "\n\t\t</table></center>"
 	html += endCode()
 	return html
 
@@ -162,36 +170,39 @@ def listcourses():
 # list of courses to take. This may take several seconds to return the list.
 @app.route('/chooseSchedule', methods=['POST'])
 def chooseSchedule():
+	html = startCode()
 	taken = [i[0]+i[1] for i in Methods.courseList(request.form['coursestaken'])]
 	year = int(request.form['year'])
-	print taken
 	schedule = Methods.getMajorCourses(request.form['major'],taken,request.form['priority1'],request.form['priority2'],request.form['priority3'],year)
 	#schedule = Methods.printSchedule(courses, taken, year)
-	print schedule
 	if schedule == "graduated":
-		html = "You've graduated. You have no more semesters to take classes."
+		html += "You've graduated. You have no more semesters to take classes."
 	elif schedule == "Not enough time":
-		html = "Your schedule has too many prequesites to take in " + str((year - 2014) * 2) + " semesters"
+		html += "Your schedule has too many prequesites to take in " + str((year - 2014) * 2) + " semesters"
 	else:
-		html = startCode()
-		html += "\n\t\t<table>"
+		html += "\n\t\tLet's see what we came up with for you...<br><br>"
+		html += "\n\t\t<center><table width=300>"
 		overloaded = False
 		# Print courses for each semester
-		for semester_schedule in schedule:
-			if len(semester_schedule) > 6:
+		for i in range(0,len(schedule)/2):
+			if len(schedule[2*i]) > 6 or len(schedule[2*i+1]) > 6:
 				overloaded = True
 			html += "\n\t\t\t<tr>"
-			html += "\n\t\t\t\t<td>"
-			html += "Semester " + str(schedule.index(semester_schedule) + 1)
-			html += "\n\t\t\t\t</td>"
-			html += "\n\t\t\t</tr>"
-			for course in semester_schedule:
-				html += "\n\t\t\t<tr>"
+			for j in range(2):
 				html += "\n\t\t\t\t<td>"
-				html += str(course)
+				html += "\n\t\t\t\t\t<center><table>"
+				html += "<b>Semester " + str(schedule.index(schedule[2*i+j]) + 1) + "</b>"
+				for course in schedule[2*i+j]:
+					html += "\n\t\t\t<tr>"
+					html += "\n\t\t\t\t<td>"
+					html += Methods.link(str(course))
+					html += "\n\t\t\t\t</td>"
+					html += "\n\t\t\t</tr>"
+				html += "\n\t\t\t\t\t</table></center>"
+				html += "\n\t\t\t\t\t<br>"
 				html += "\n\t\t\t\t</td>"
-				html += "\n\t\t\t</tr>"
-		html += "\n\t\t</table>"
+			html += "\n\t\t\t</tr>"
+		html += "\n\t\t</table></center>"
 		html += "<br>" + "Don't forget to allot time for sector requirements: Our decide on a course module can help!" + "</br>"
 		if overloaded:
 			html += "<br>" + "Even without sectors, you're overloaded. You may need more years!" + "</br>"
