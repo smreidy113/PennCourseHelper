@@ -11,6 +11,7 @@ params = {'count': str(100)}
 s = requests.Session()
 s.mount('http://', HTTPAdapter(max_retries=5))
 
+# Eliminates extraneous cross-listings so course codes match the ones in Data.py
 def eliminateCrossListings(l,d):
 	ans = []
 	for i in l:
@@ -19,6 +20,7 @@ def eliminateCrossListings(l,d):
 				ans.append(j)
 	return ans
 
+# Converts text input for "courses taken" to usuable data structure
 def courseList(s):
 	s = s + ","
 	ans = []
@@ -27,6 +29,7 @@ def courseList(s):
 		ans.append((match.group(1).upper(),match.group(2)))
 	return ans
 
+# Finds the class data in the data structure.
 def findInClass(major,code):
 	for course in Data.major_courses[major]["Required"]:
 		if code == course[0]:
@@ -35,32 +38,40 @@ def findInClass(major,code):
 		if code == course[0]:
 			return course
 
+# Finds key in dictionary from value
 def key(p):
 	for k,v in Data.attrs.iteritems():
 		if p == v[0]:
 			return k
 
+# Removes dash from class name
 def removeDash(s):
 	e = r'([A-Za-z]{2,4}).*?([0-9]{3})'
 	for match in re.finditer(e,s):
 		return match.group(1) + match.group(2)
 
+# Adds dash to class name (used for generating URL)
 def addDash(s):
 	e = r'([A-Za-z]{2,4}).*?([0-9]{3})'
 	for match in re.finditer(e,s):
 		return match.group(1) + "-" + match.group(2)
 
+# Creates HTML code for a link to the course on PennCourseReview
 def link(s):
 	ans = "<a href=\"http://penncoursereview.com/course/"
 	ans += addDash(s)
 	ans += "\" target=\"_blank\">" + s + "</a>"
 	return ans
 
-
+# Given a department, creates a ranking system for courses in that department
+# Returns a list of tuples:
+# [([course_name1,course_name2,...],(overallRank,avgQuality1,avgQuality2,avgQuality3)), ...]
 def rankedCourses(revinfo,p1,p2,p3):
 	courseDict = {}
 	ratingsDict = {}
 	altNamesDict = {}
+
+	# Collect all names for all courses
 	for course in revinfo:
 		courseName = course['section']['primary_alias']
 		if courseName[0:-4] in courseDict.keys():
@@ -69,8 +80,12 @@ def rankedCourses(revinfo,p1,p2,p3):
 			courseDict[courseName[0:-4]] = [course]
 			ratingsDict[courseName[0:-4]] = 0.0
 			altNamesDict[courseName[0:-4]] = [removeDash(s[0:-4]) for s in course['section']['aliases']]
+
+	# Creates scores of the classes based on preferences p1,p2,p3
 	for course in courseDict.keys():
 		sumRating1, sumRating2, sumRating3 = 0.0, 0.0, 0.0
+
+		# Finds total score across all sections
 		for section in courseDict[course]:
 			if (Data.attrs[key(p1)]) != "None":
 				if (Data.attrs[key(p1)][1]):
@@ -87,23 +102,33 @@ def rankedCourses(revinfo,p1,p2,p3):
 					sumRating3 += float(section['ratings'].get(str('r'+p3),0.0))
 				else:
 					sumRating3 += float(4 - float(section['ratings'].get(str('r'+p3),0.0)))
+
+		# Determine average score for each of these preferences
 		avgRating1 = sumRating1/len(courseDict[course])
 		avgRating2 = sumRating2/len(courseDict[course])
 		avgRating3 = sumRating3/len(courseDict[course])
+
+		# Preference 1 weighted 3, p2 weighted 2, p3 weighted 1
 		overallRank = (3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2) / 96 * 10
+
+		# Reflip qualities for display purposes
 		if not Data.attrs[key(p1)][1]:
 			avgRating1 = 4 - avgRating1
 		if not Data.attrs[key(p1)][1]:
 			avgRating2 = 4 - avgRating2
 		if not Data.attrs[key(p1)][1]:
 			avgRating3 = 4 - avgRating3
+
 		ratingsDict[course] = (overallRank,avgRating1,avgRating2,avgRating3)
+
+	# Create data structure and sort it
 	s = ratingsDict.items()
 	for i in range(0,len(s)):
 		s[i] = (altNamesDict[s[i][0]],s[i][1])
 	s.sort(key=lambda x:x[1][0])
 	return s
 
+# Gets a subset of a list
 def getSubset(s,num_needed):
 	# return subset
 	if num_needed > len(s):
@@ -114,12 +139,16 @@ def getSubset(s,num_needed):
 			l.append(s[i])
 		return l
 
+# Determines if at least one element of a is in subset b
+# Useful for checking cross-listings
 def isIn(a,b):
 	for i in a:
 		if i in b:
 			return True
 	return False
 
+# Given a number of departments (or number of classes),
+# Sorts these classes using rankedCourses
 def rankedCoursesMultiple(l,p1,p2,p3, taken):
 	s = []
 	ind_courses_temp = []

@@ -17,6 +17,7 @@ app = Flask(__name__)
 
 req = requests.get('http://api.penncoursereview.com/v1/depts?token=' + api_key)
 
+# Starter HTML Code - Display on every page
 def startCode():
 	ans = ""
 	ans = "<html>"
@@ -38,6 +39,7 @@ def startCode():
 	ans += "\n\t\t\t<div id=\"content\">"
 	return ans
 
+# Ending HTML Code - Display on every page
 def endCode():
 	ans = ""
 	ans += "\n\t\t\t</div>"
@@ -49,7 +51,7 @@ def endCode():
 	ans += "\n</html>"
 	return ans
 
-
+# Home page
 @app.route('/')
 def start():	
 	html = startCode()
@@ -209,6 +211,7 @@ def chooseSchedule():
 	html += endCode()
 	return html
 
+# Load CSS stylesheet
 @app.route('/style')
 def getStyle():
 	return open("style.css").read()
