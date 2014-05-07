@@ -8,3 +8,4 @@ oauth2==1.5.211
 requests==2.2.1
 virtualenv==1.11.4
 gunicorn==0.14.6
+mysql-connector-python==1.1.6
