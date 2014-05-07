@@ -76,7 +76,7 @@ def complete_schedule():
 		html += "\n\t\t\t\t<option value=\"" + major + "\">" + major 
 		html += "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t<br><br>Courses taken: <input type=\"text\" "
+	html += "\n\t\t\t<br><br>Courses taken (e.g. PSYC101, HIST070...): <input type=\"text\" "
 	html += "name = \"coursestaken\">"
 	html += "\n\t\t\t<br><br>Year (required; enter 2015 or above): "
 	html += "<input type=\"text\" name = \"year\">"
@@ -85,12 +85,12 @@ def complete_schedule():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">" 
 		html += prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t<br>2nd Priority (required): <select name=\"priority2\">"
+	html += "\n\t\t\t<br>2nd Priority: <select name=\"priority2\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">"
 		html += prior + "</option>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t<br>3rd Priority (required): <select name=\"priority3\">"
+	html += "\n\t\t\t<br>3rd Priority: <select name=\"priority3\">"
 	for prior in Data.attrs.keys():
 		html += "\n\t\t\t\t<option value=\"" + Data.attrs[prior][0] + "\">"
 		html += prior + "</option>"
@@ -114,7 +114,7 @@ def choose_course():
 		html += " - " + dept['name'] + "</option>"
 	html += "\n\t\t\t</select>"
 	html += "\n\t\t\t</select>"
-	html += "\n\t\t\t<br><br>Courses taken: <input type=\"text\" name = "
+	html += "\n\t\t\t<br><br>Courses taken (e.g. PSYC101, HIST070...): <input type=\"text\" name = "
 	html += "\"coursestaken\">"
 	html += "\n\t\t\t<br><br>1st Priority (required): <select name=\"priority1\">"
 	for prior in Data.attrs.keys():

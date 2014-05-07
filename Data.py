@@ -237,7 +237,7 @@ major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []),
     ("MEAM571", 1, ["MEAM570"], []), ("MEAM572", 1, ["MEAM203"], []),
     ("MEAM575", 1, [], [])]},
 
-    "Networked and Social Systems Engineering" : {"Required" :
+    "Networked & Social Systems Engineering" : {"Required" :
     [("MATH104", 1, [], []), ("MATH114", 1, ["MATH104"], []),
     ("MATH240", 1, ["MATH104", "MATH114"], []),
     ("EAS205", 1, ["MATH114"], []), ("CIS160", 1, [], []),
@@ -245,7 +245,7 @@ major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []),
     ("PHYS151", 1.5, ["PHYS150"], ["MATH114"]),
     ("CIS110", 1, [], []), ("CIS120", 1, [], []), 
     ("CIS121", 1, ["CIS120", "CIS160"], []),
-    ("CIS320", 1, ["CIS120", "CIS121", "CIS160", "CIS262"], []),
+    ("CIS320", 1, ["CIS120", "CIS121", "CIS160"], []),
     ("ESE210", 1, ["MATH240"], []),
     ("ESE303", 1, ["ESE301"], []), ("ESE304", 1, ["MATH240"], []),
     ("NETS112", 1, [], []), ("NETS150", 1, [], []),
