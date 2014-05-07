@@ -136,7 +136,6 @@ def listcourses():
 		html += "Please select a 1st priority"
 		return html
 	courses_taken = Methods.courseList(request.form['coursestaken'])
-	print courses_taken
 	s = Methods.rankedCoursesMultiple(request.form.getlist('dept1'),p1,p2,p3,courses_taken)
 	top_courses = Methods.getSubset(s, 10)
 	html += "Here are your top " + str(len(top_courses)) + " recommendations:"
