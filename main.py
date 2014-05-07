@@ -22,9 +22,18 @@ def startCode():
 	ans = "<html>"
 	ans += "\n\t<head>"
 	ans += "\n\t\t<title>Penn Course Helper</title>"
-	ans += "\n\t\t<link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\">"
+	ans += "\n\t\t<link href=\"style\" rel=\"stylesheet\" type=\"text/css\">"
 	ans += "\n\t</head>"
 	ans += "\n\t<body>"
+	ans += "\n\t\t<div id=\"wrapper\">"
+	ans += "\n\t\t\t<div id=\"menu\">"
+	ans += "\n\t\t\t\t<div class=\"menubar\">"
+	ans += "\n\t\t\t\t\t<ul>"
+	ans += "\n\t\t\t\t\t\t<li>Penn Course Helper</li>"
+	ans += "\n\t\t\t\t\t</ul>"
+	ans += "\n\t\t\t\t</div>"
+	ans += "\n\t\t\t</div>"
+	ans += "\n\t\t</div>"
 	return ans
 
 def endCode():
@@ -188,6 +197,10 @@ def chooseSchedule():
 			html += "<br>" + "Even without sectors, you're overloaded. You may need more years!" + "</br>"
 	html += endCode()
 	return html
+
+@app.route('/style')
+def getStyle():
+	return open("style.css").read()
 
 if __name__ == '__main__':
 	app.run(debug=True)

@@ -1,51 +1,203 @@
-#menu, #menu ul
-{
-    list-style: none;
-    border: 1px solid #000;
-    background-color: #ecffec;
-    padding: 0 0 26px 0;
-    margin: 0;
+#wrapper {
+    text-align:left;
+
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+
+    font-family: helvetica, sans-serif;
+
+    background-color: #ffffff;
+    width:1000px;
 }
-#menu li
-{
-    float: left;
-    margin-right: 3px;
-    border: 1px solid #ecffec;
-    position: relative;
+
+#menu {
+    display:block;
+    height:50px;
+    right:0;
+    left:0;
+    margin-left:auto;
+    margin-right:auto;
 }
-#menu ul
-{
-    position: absolute;
-    top: 25px;
-    left: -1px;
-    width: 200px;
-    padding: 0;
-    display: none;
+
+#content {
+
+    width:950px;
+    padding-left:25px;
+    padding-right:25px;
+    min-height:50%;
+    padding-top:25px;
+    padding-bottom:25px;
+    background-color: #ffffff;
+    margin-left:auto;
+    margin-right:auto;
+    height:auto;
+    display:inline-block;
 }
-#menu ul li
-{
-    float: none;
-    margin: 0;
-    padding: 0;
-    line-height: 15px;
+
+div.menubar * {
+    margin:0; padding:0;
 }
-#menu a:link, #menu a:visited
-{
-    display: block;
-    font-family: Tahoma;
-    font-size: 0.75em;
-    font-weight: bold;
-    text-align: left;
+
+div.menubar {
+
+    behavior:url(csshover3.htc);
+
+    /* font-family: helvetica, sans-serif; */
+
+    font-size:1.15em;
+
+    margin:0px 0px 0px 0px;
+
+    background-color:transparent;
+
+    color:#ffffff;
+
+}
+
+div.menubar ul {
+
+    display:block;
+    position:absolute;
+
+    width:980px;
+    right:0;
+    left:0;
+
+    float:right;
+    margin-left:auto;
+    margin-right:auto;
+
+    /* height:70px; */
+
+    background-color:#002233;
+
+    /* padding-top: 10px; */
+    /* padding-bottom: 10px; */
+    padding-left: 10px;
+    padding-right: 10px;
+
+    /* border-bottom:5px solid transparent; */
+
+}
+
+div.menubar li {
+
+    position:relative;
+    display:inline-block;
+    float:right;
+
+    padding: 15px 15px 15px 15px;
+    color:#ffffff;
     text-decoration: none;
-    color: #000;
-    padding: 5px;
+
+    -o-webkit-transition: .2s ease;
+    -ms-webkit-transition: .2s ease;
+    -moz-webkit-transition: .2s ease;
+    -webkit-transition: .2s ease;
+    -transition: .2s ease;
+
+    /* background-color:#002233; */
+
 }
-#menu li:hover
-{
-    background-color: #ffd98a;
-    border: 1px solid #000;
+
+div.menubar li:hover {
+
+    -o-webkit-transition: .2s ease;
+    -ms-webkit-transition: .2s ease;
+    -moz-webkit-transition: .2s ease;
+    -webkit-transition: .2s ease;
+    -transition: .2s ease;
+
+    background-color:#113243;
+    color:#ffffff;
+
 }
-#menu li:hover ul
-{
-    display: block;
+
+div.menubar li a {
+    display:inline-block;
+    text-decoration:none;
+    background-color:transparent;
+    color:#ffffff;
+
+    border-bottom: 1px solid transparent;
+    
+    
+
+    -o-webkit-transition: .2s ease;
+    -ms-webkit-transition: .2s ease;
+    -moz-webkit-transition: .2s ease;
+    -webkit-transition: .2s ease;
+    -transition: .2s ease;
+
+    /* padding:.2em 5px; */
+}
+
+div.menubar li a:hover {
+
+    border-bottom: 1px solid white;
+    width:100%;
+    background-color:transparent;
+
+    -o-webkit-transition: .2s ease;
+    -ms-webkit-transition: .2s ease;
+    -moz-webkit-transition: .2s ease;
+    -webkit-transition: .2s ease;
+    -transition: .2s ease;
+
+
+    /* color:#000000; */
+    /* padding:.2em 5px; */
+}
+
+div.menubar {
+    float:right;
+    width:50%;
+}
+
+div.menubar ul {
+    float:left;
+    font-size:1em;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+div.menubar li {
+    float:left;
+    list-style-type:none;
+    position:relative;
+}
+
+div.name {
+    margin-top:auto;
+    margin-bottom:auto;
+    vertical-align:center;
+}
+
+div.name li{
+    vertical-align:center;
+    float:left;
+    margin-top:auto;
+    margin-bottom:auto;
+    font-size:1.3em;
+    text-transform:uppercase;
+    width:50%;
+    color:white;
+    padding-top:13px;
+    padding-bottom:13px;
+    background-color:#002233;
+}
+
+div.name li:hover {
+    background-color:#002233;
+}
+
+div.name li a {
+    text-decoration:none;
+    color:white;
+    border-style:none;
+}
+
+div.name li a:hover {
+    border-style:none;
 }
