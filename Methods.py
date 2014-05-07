@@ -16,7 +16,8 @@ def eliminateCrossListings(l,d):
 	ans = []
 	for i in l:
 		for j in i:
-			if j in [x[0] for x in d['Required']] or j in [x[0] for x in d['Optional']]:
+			if j in [x[0] for x in d['Required']] or j in [x[0] for 
+				x in d['Optional']]:
 				ans.append(j)
 	return ans
 
@@ -65,7 +66,8 @@ def link(s):
 
 # Given a department, creates a ranking system for courses in that department
 # Returns a list of tuples:
-# [([course_name1,course_name2,...],(overallRank,avgQuality1,avgQuality2,avgQuality3)), ...]
+# [([course_name1,course_name2,...],(overallRank,avgQuality1,
+#	avgQuality2,avgQuality3)), ...]
 def rankedCourses(revinfo,p1,p2,p3):
 	courseDict = {}
 	ratingsDict = {}
@@ -79,7 +81,8 @@ def rankedCourses(revinfo,p1,p2,p3):
 		else:
 			courseDict[courseName[0:-4]] = [course]
 			ratingsDict[courseName[0:-4]] = 0.0
-			altNamesDict[courseName[0:-4]] = [removeDash(s[0:-4]) for s in course['section']['aliases']]
+			altNamesDict[courseName[0:-4]] = [removeDash(s[0:-4]) for 
+				s in course['section']['aliases']]
 
 	# Creates scores of the classes based on preferences p1,p2,p3
 	for course in courseDict.keys():
@@ -89,19 +92,25 @@ def rankedCourses(revinfo,p1,p2,p3):
 		for section in courseDict[course]:
 			if (Data.attrs[key(p1)]) != "None":
 				if (Data.attrs[key(p1)][1]):
-					sumRating1 += float(section['ratings'].get(str('r'+p1),0.0))
+					sumRating1 += float(section['ratings']
+						.get(str('r'+p1),0.0))
 				else:
-					sumRating1 += float(4 - float(section['ratings'].get(str('r'+p1),0.0)))
+					sumRating1 += float(4 - float(section['ratings']
+						.get(str('r'+p1),0.0)))
 			if (Data.attrs[key(p2)]) != "None":
 				if (Data.attrs[key(p2)][1]):
-					sumRating2 += float(section['ratings'].get(str('r'+p2),0.0))
+					sumRating2 += float(section['ratings']
+						.get(str('r'+p2),0.0))
 				else:
-					sumRating2 += float(4 - float(section['ratings'].get(str('r'+p2),0.0)))
+					sumRating2 += float(4 - float(section['ratings']
+						.get(str('r'+p2),0.0)))
 			if (Data.attrs[key(p3)]) != "None":
 				if (Data.attrs[key(p3)][1]):
-					sumRating3 += float(section['ratings'].get(str('r'+p3),0.0))
+					sumRating3 += float(section['ratings']
+						.get(str('r'+p3),0.0))
 				else:
-					sumRating3 += float(4 - float(section['ratings'].get(str('r'+p3),0.0)))
+					sumRating3 += float(4 - float(section['ratings']
+						.get(str('r'+p3),0.0)))
 
 		# Determine average score for each of these preferences
 		avgRating1 = sumRating1/len(courseDict[course])
@@ -109,7 +118,8 @@ def rankedCourses(revinfo,p1,p2,p3):
 		avgRating3 = sumRating3/len(courseDict[course])
 
 		# Preference 1 weighted 3, p2 weighted 2, p3 weighted 1
-		overallRank = (3*avgRating1**2 + 2*avgRating2**2 + 1*avgRating3**2) / 96 * 10
+		overallRank = (3*avgRating1**2 + 2*avgRating2**2 
+			+ 1*avgRating3**2) / 96 * 10
 
 		# Reflip qualities for display purposes
 		if not Data.attrs[key(p1)][1]:
@@ -166,7 +176,8 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 				ind_courses_temp.append(match.group(1) + match.group(2))
 	ind_coures = ind_courses_temp
 	for dept in l:
-		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' + dept + '/reviews?token=' + api_key).json()['result']['values']
+		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' 
+			+ dept + '/reviews?token=' + api_key).json()['result']['values']
 		s.extend(rankedCourses(revinfo,p1,p2,p3))
 	s.sort(key=lambda x:x[1][0], reverse=True)
 	for course in taken:
@@ -198,7 +209,8 @@ def getMajorCourses(major, taken, p1, p2, p3, year):
 			if course[0][-3] == level[0]:
 				needed_in_level -= opt_course[1]
 	# order optional courses according to user preferences
-	ranked_opt = [x[0] for x in rankedCoursesMultiple(optional.keys(), p1, p2, p3, taken)]
+	ranked_opt = [x[0] for x in rankedCoursesMultiple(optional.keys(), 
+		p1, p2, p3, taken)]
 	ranked_opt = eliminateCrossListings(ranked_opt,Data.major_courses[major])
 	opt_courses = []
 	i = 0
@@ -211,14 +223,20 @@ def getMajorCourses(major, taken, p1, p2, p3, year):
 		this_credit = optional[course][0]
 		# Ensure courses returned will not have unfulfilled prerequisites
 		for prereq in optional[course][1]:
-			# The last part allows us to take a course if the prereq will be added later (i.e. it is in the set of courses in opt_ranked we know we will add)
-			if not prereq in taken and not prereq in required.keys() and not prereq in ranked_opt[i:int(i+opt_credits_needed-credits-this_credit)]:
+			# The last part allows us to take a course if the prereq will be
+			# added later (i.e. it is in the set of courses in opt_ranked we 
+			# know we will add)
+			if not prereq in taken and not prereq in required.keys() \
+			and not prereq in ranked_opt[i:int(i+opt_credits_needed
+					-credits-this_credit)]:
 				add_course = False
 				break
 		#Ensure courses returned will not have unfulfilled corequisites
 		if add_course:
 			for coreq in optional[course][1]:
-				if not coreq in taken and not coreq in required.keys() and not coreq in ranked_opt[i:int(i+opt_credits_needed-credits-this_credit)]:
+				if not coreq in taken and not coreq in required.keys() and not \
+					coreq in ranked_opt[i:int(i+opt_credits_needed
+						-credits-this_credit)]:
 					add_course = False
 					break
 		if add_course:
@@ -227,10 +245,12 @@ def getMajorCourses(major, taken, p1, p2, p3, year):
 			if int(course[-3]) >= int(level[0]):
 				level_credits += this_credit
 		i += 1
-		# Make sure the list of courses we return fulfills the requirement that so many courses are above a certain level
+		# Make sure the list of courses we return fulfills the requirement that 
+		# so many courses are above a certain level
 	 	if credits >= opt_credits_needed and needed_in_level > level_credits:
 			i2 = i - 1
-			# Do not take extra classes. Remove the lowest ranked class not above the needed level
+			# Do not take extra classes. Remove the lowest ranked class not 
+			# above the needed level
 			if int(opt_courses[i][-3]) < int(level[0]):
 				worst_curr_class = opt_courses[i]
 				opt_courses.remove(worst_curr_class)
@@ -252,7 +272,8 @@ def printSchedule(l, taken, year,required,optional):
 	semester_schedules = []
 	# Each semester
 	for i in range((year-2014)*2):
-		# Sort by course number. In general, students take lower numbered courses first
+		# Sort by course number. In general, students take lower numbered 
+		# courses first
 		sorted_courses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
 		credits = 0
 		courses = []
@@ -268,18 +289,22 @@ def printSchedule(l, taken, year,required,optional):
 					fulfills_prereq = False
 			if fulfills_prereq:
 				course_and_coreqs = [course]
-				for coreq in optionalRequiredUnknown(course, 2, required, optional):
+				for coreq in optionalRequiredUnknown(course, 2, required, 
+					optional):
 					if coreq not in taken:
-						for prereq in optionalRequiredUnknown(coreq, 1, required, optional):
+						for prereq in optionalRequiredUnknown(coreq, 1, 
+							required, optional):
 							if not prereq in taken:
 								fulfills_prereq = False
 								break
-							elif not coreq in courses and not coreq in course_and_coreqs:
+							elif not coreq in courses and not coreq in \
+							course_and_coreqs:
 								course_and_coreqs.append(coreq)
 			if fulfills_prereq:
 				for c in course_and_coreqs:
 					courses.append(c)
-					credits += optionalRequiredUnknown(course, 0, required, optional)
+					credits += optionalRequiredUnknown(course, 0, 
+						required, optional)
 					try:
 						sorted_courses.remove(c)
 					except:
@@ -297,7 +322,8 @@ def printSchedule(l, taken, year,required,optional):
 		return "Not enough time"
 	return semester_schedules
 
-# Called on a course when it is unknown whether the course lies in the optional or required dictionary
+# Called on a course when it is unknown whether the course lies in 
+# the optional or required dictionary
 def optionalRequiredUnknown(course, field,required,optional):
 	try: 
 		x = required[course][field]
