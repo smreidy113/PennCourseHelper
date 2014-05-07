@@ -4,8 +4,7 @@ MarkupSafe==0.19
 Werkzeug==0.9.4
 httplib2==0.8
 itsdangerous==0.24
+mysql-connector-python==1.1.6
 oauth2==1.5.211
 requests==2.2.1
 virtualenv==1.11.4
-gunicorn==0.14.6
-mysql-connector-python==1.1.6

@@ -7,6 +7,7 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from requests.adapters import HTTPAdapter
+import os
 
 api_key = 'q2cm13OPDbZAzvJHGxWgtqcI1ZFp6K'
 params = {'count': str(100)}
