@@ -163,17 +163,21 @@ def rankedCoursesMultiple(l,p1,p2,p3, taken):
 	s = []
 	ind_courses_temp = []
 	depts = True
-	if len(l[0]) > 4:
-		depts = False
-		ind_courses = l
-		l = []
-		ind_courses_temp = []
-		e = r'([A-Z]{2,4}).*?([0-9]{3})'
-		for ind_course in ind_courses:
-			for match in re.finditer(e,ind_course):
-				if match.group(1) not in l:
-					l.append(match.group(1))
-				ind_courses_temp.append(match.group(1) + match.group(2))
+	# l passed in could be empty
+	try:
+		if len(l[0]) > 4:
+			depts = False
+			ind_courses = l
+			l = []
+			ind_courses_temp = []
+			e = r'([A-Z]{2,4}).*?([0-9]{3})'
+			for ind_course in ind_courses:
+				for match in re.finditer(e,ind_course):
+					if match.group(1) not in l:
+						l.append(match.group(1))
+					ind_courses_temp.append(match.group(1) + match.group(2))
+	except:
+		pass
 	ind_coures = ind_courses_temp
 	for dept in l:
 		revinfo = requests.get('http://api.penncoursereview.com/v1/depts/' 
@@ -200,14 +204,17 @@ def getMajorCourses(major, taken, p1, p2, p3, year):
 	for course in Data.major_courses[major]["Required"]:
 		if course[0] not in taken:
 			required[course[0]] = course[1:]
-	# Fill optional dictionary
-	for opt_course in Data.major_courses[major]["Optional"][1:]:
-		if opt_course[0] not in taken:
-			optional[opt_course[0]] = opt_course[1:]
-		else:
-			opt_credits_needed -= opt_course[1]
-			if course[0][-3] == level[0]:
-				needed_in_level -= opt_course[1]
+	# Fill optional dictionary (try in case no optional courses)
+	try:
+		for opt_course in Data.major_courses[major]["Optional"][1:]:
+			if opt_course[0] not in taken:
+				optional[opt_course[0]] = opt_course[1:]
+			else:
+				opt_credits_needed -= opt_course[1]
+				if course[0][-3] == level[0]:
+					needed_in_level -= opt_course[1]
+	except:
+		pass
 	# order optional courses according to user preferences
 	ranked_opt = [x[0] for x in rankedCoursesMultiple(optional.keys(), 
 		p1, p2, p3, taken)]
