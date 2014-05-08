@@ -258,8 +258,10 @@ def getMajorCourses(major, taken, p1, p2, p3, year):
 			i2 = i - 1
 			# Do not take extra classes. Remove the lowest ranked class not 
 			# above the needed level
-			if int(opt_courses[i][-3]) < int(level[0]):
-				worst_curr_class = opt_courses[i]
+			print i2
+			print opt_courses
+			if int(opt_courses[i2][-3]) < int(level[0]):
+				worst_curr_class = opt_courses[i2]
 				opt_courses.remove(worst_curr_class)
 				credits -= optional[worst_curr_class][0]
 			else:
