@@ -6,6 +6,7 @@ import Data
 from flask import Flask
 from flask import jsonify
 from flask import request
+from flask import url_for
 from requests.adapters import HTTPAdapter
 import os
 
@@ -150,8 +151,9 @@ def listcourses():
 	p1 = request.form['priority1']
 	p2 = request.form['priority2']
 	p3 = request.form['priority3']
-	if p1 == None:
-		html += "Please select a 1st priority"
+	if p1 == "None":
+		html += "Please select a 1st priority. " + \
+		    "<a href=\"choose_course\">Go back</a>" + "</br>"
 		return html
 	courses_taken = Methods.courseList(request.form['coursestaken'])
 	s = Methods.rankedCoursesMultiple(request.form.getlist('dept1'), \
@@ -189,11 +191,27 @@ def listcourses():
 # When the user makes a request to complete her schedule, this returns a 
 # semester-by-semester
 # list of courses to take. This may take several seconds to return the list.
-@app.route('/chooseSchedule', methods=['POST'])
+@app.route('/chooseSchedule', methods=['GET', 'POST'])
 def chooseSchedule():
+	if request.method == 'GET':
+		html = startCode()
+		html += "\n\t\t<br><br><form name=\"myform\" action=\"chooseSchedule\""
+		html += " method=\"POST\">"
+		return html
 	html = startCode()
 	taken = [i[0]+i[1] for i in Methods.courseList(request.form['coursestaken'])]
-	year = int(request.form['year'])
+	try:
+		year = int(request.form['year'])
+		if year < 2015:
+			raise Exception
+	except:
+		html += "<br>" + "Please enter a valid year 2015 or beyond. " + \
+			"<a href=\"complete_schedule\">Go back</a>" + "</br>"
+		return html
+	if request.form['priority1'] == "None":
+		html += "<br>" + "Please enter a first priority. " + \
+					"<a href=\"complete_schedule\">Go back</a>" + "</br>"
+		return html
 	schedule = Methods.getMajorCourses(request.form['major'],taken, \
 		request.form['priority1'],request.form['priority2'], \
 		request.form['priority3'],year)
