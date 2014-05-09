@@ -1,3 +1,5 @@
+Sean Reidy and Steven Jaffe
+
 PennCourseHelper incorporates many topics that we learned over the course of
 the semester, including api's (specifically, PCH uses the penncoursereview
 api), flask, regular expressions, modules, json, posting methods, and heroku
