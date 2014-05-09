@@ -279,8 +279,6 @@ def printSchedule(l, taken, year,required,optional):
 	semester_schedules = []
 	# Each semester
 	for i in range((year-2014)*2):
-		print taken
-		print sorted_courses
 		# Sort by course number. In general, students take lower numbered 
 		# courses first
 		sorted_courses = sorted(sorted_courses, key=lambda x: int(x[-3:]))
