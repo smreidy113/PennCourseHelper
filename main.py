@@ -176,7 +176,7 @@ def listcourses():
 		html += "\n\t\t\t\t<td>"
 		for i in range(0,len(course[0])-1):
 			html += Methods.link(course[0][i]) + ", "
-		html += course[0][len(course[0])-1] + "</td>"
+		html += Methods.link(course[0][len(course[0])-1]) + "</td>"
 		html += "\n\t\t\t\t<td>" + str(course[1][0]) + "</td>"
 		html += "\n\t\t\t\t<td>" + str(course[1][1]) + "</td>"
 		if p2 != "None":
@@ -247,7 +247,7 @@ def chooseSchedule():
 			html += "\n\t\t\t</tr>"
 		html += "\n\t\t</table></center>"
 		html += "<br>" + "Don't forget to allot time for sector requirements: "
-		html += "Our decide on a course module can help!" + "</br>"
+		html += "Our <a href=\"choose_course\">decide on a course</a> module can help!" + "</br>"
 		if overloaded:
 			html += "<br>" + "Even without sectors, you're overloaded. You "
 			html += "may need more years" + "</br>"
@@ -260,5 +260,5 @@ def getStyle():
 	return open("style.css").read()
 
 if __name__ == '__main__':
-	app.run(debug=True)
-	#pass
+	#app.run(debug=True)
+	pass
