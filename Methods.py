@@ -274,11 +274,13 @@ def printSchedule(l, taken, year,required,optional):
 	if (year <= 2014):
 		return "graduated"
 	sorted_courses = l
-	num_per_semester = math.ceil(float(len(l)) / (2 * (year - 2014)))
+	num_per_semester = math.ceil(len(taken) + float(len(l)) / (2 * (year - 2014)))
 	# A list of lists (each list is courses for a particular semester)
 	semester_schedules = []
 	# Each semester
 	for i in range((year-2014)*2):
+		print taken
+		print sorted_courses
 		# Sort by course number. In general, students take lower numbered 
 		# courses first
 		sorted_courses = sorted(sorted_courses, key=lambda x: int(x[-3:]))

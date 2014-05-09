@@ -261,8 +261,8 @@ major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []),
     ("CIS330", 1, ["CIS121", "CIS160"], []), 
     ("CIS334", 1, ["CIS320"], []), 
     ("CIS368", 1, ["CIS121", "CIS277"], []), ("CIS430", 1, ["CIS121"], []), 
-    ("CIS455", 1, [], []), ("CIS520", 1, ["MATH312"], []), 
-    ("CIS551", 1, ["TCOM512"], []), ("CIS553", 1, ["CIS121"], [])]},
+    ("CIS455", 1, [], []), ("CIS520", 1, [], []), 
+    ("CIS551", 1, [], []), ("CIS553", 1, ["CIS121"], [])]},
 
 
     "Systems Science and Engineering" : {"Required":
