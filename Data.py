@@ -198,6 +198,7 @@ major_courses = {"Bioengineering" : { "Required" : [("MATH104", 1, [], []),
 
     "MEAM" : {"Required" :
     [("MEAM110", 1.5, [], []), ("MATH104", 1, [], []),
+    ("MATH114", 1, ["MATH104"], []),
     ("CHEM101", 1, [], ["CHEM053"]), 
     ("CHEM053", .5, [], ["CHEM101"]),
     ("PHYS151", 1.5, ["MEAM110"], ["MATH114"]),
